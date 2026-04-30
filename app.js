@@ -5,7 +5,7 @@ const methodOverride = require('method-override');
 const path = require('path');
 
 //models
-const listing = require('./model/listing.js');
+const listing = require('./DB_model/listing.js');
 const { render } = require('ejs');
 
 app.set('views', path.join(__dirname, 'views'));
@@ -50,7 +50,11 @@ app.post('/listings/create', async (req, res)=>{
     console.log(temp);
     res.redirect('/listings');
 });
-
+app.delete('/listings/:id/delete', async (req, res)=>{
+    let {id} = req.params;
+    await listing.findByIdAndDelete({_id: id});
+    res.redirect('/listings');
+})
 
 app.get("/listings/:id", async (req, res)=>{
     let {id} = req.params;

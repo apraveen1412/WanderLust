@@ -43,7 +43,16 @@
   margin-right: 0.3rem;
   color: #555;
 }
-
+#showDel, #showWishlist, #showShare{
+    color: black;
+    transition: 0.1s ease-out;
+}
+#showDel:hover, #showWishlist:hover, #showShare:hover{transform: scale(1.05);}
+#showDel{
+    color: red;
+    background-color: transparent;
+    border: none;
+}
 
 /* new listing */
 
