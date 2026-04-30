@@ -1,0 +1,20 @@
+<div class="show-listing container-md  d-flex flex-row justify-content-center align-items-center">
+    <div class="listed-details">
+        <div class="listed-item-title d-flex justify-content-center align-items-center">
+            <h2 class="card-title"><%- listed.title %></h2>
+            <a href="#" type="button"><i class="fa-solid fa-arrow-up-from-bracket"></i> Share</a>
+            <a href="#" type="button"><i class="fa-regular fa-heart"></i> Save</a>
+        </div>
+        <h4>Details</h4>
+        <ul>
+            <li><%- listed.description %></li>
+            <li><%- listed.location %></li>
+            <li><%- listed.country %></li>
+        </ul>
+        <div class="listed-item-dets d-flex">
+            <p>₹<%- listed.price.toLocaleString("en-in")%><small>/per day</small></p>
+            <p>Hosting since <%- listed.createdAt.toLocaleString("en-GB", { year: 'numeric' }) %></p>
+        </div>
+    </div>
+    <img src='<%- listed.image %>' class="card-img-top listed-item-img" alt='<%- listed.title %>'>
+</div>

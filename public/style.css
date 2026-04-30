@@ -1,0 +1,59 @@
+
+/* listing */
+.listing-cards{
+    row-gap: 1rem;
+}
+.listing-cards a{
+    text-decoration: none;
+    color: black;
+}
+.list-card-img{
+    height: 11rem;
+    width: 100%;
+    object-fit: cover;
+    object-position: top;
+    object-position: bottom;
+    object-position: 30% 40%;
+}
+.listed-card:hover {
+  transform: scale(1.05);
+  filter: brightness(0.95);
+}
+
+/* show */
+.show-listing{
+    position: relative;
+    top: 25vh;
+    column-gap: 2rem;
+}
+.listed-item-img{
+    height: 25rem;
+    width: 100%;
+    object-fit: cover;
+    object-position: 0% 70%;
+}
+.listed-details ul{padding-left: 0rem;}
+.listed-details ul li{list-style: none;}
+.listed-item-dets {
+  display: flex;
+  gap: 0.3rem;
+}
+.listed-item-dets p + p::before {
+  content: "•";
+  margin-right: 0.3rem;
+  color: #555;
+}
+
+
+/* new listing */
+
+.newListing{
+    display: flex;
+    position: relative;
+    top: 25vh;
+    left: 25vw;
+    width: 30rem;
+    background-color: whitesmoke;
+    border-radius: 0.5rem;
+    padding: 1rem;
+}

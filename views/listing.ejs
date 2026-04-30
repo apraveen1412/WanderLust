@@ -1,0 +1,11 @@
+<div class="listing-cards container-md d-flex flex-wrap justify-content-evenly">
+    <% for( let item of list ) { %>
+        <div class="card listed-card" style="width: 18rem;">
+            <img src='<%- item.image %>' class="card-img-top list-card-img" alt='<%- item.title %>'>
+            <div class="card-body">
+              <a href="/listings/<%- item._id %>"><h6 class="card-title"><%- item.title %></h6></a>
+              <p class="card-text">₹<%- item.price.toLocaleString("en-in") %> for 1 night</p>
+            </div>
+        </div>
+    <% } %>
+</div>
