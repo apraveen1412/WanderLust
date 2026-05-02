@@ -1,0 +1,32 @@
+<h3 id="updateHeading">Edit / Update</h3>
+<form action="/listings/<%- listed._id %>?_method=PUT" method="post" class="editListing d-flex flex-column">
+    <div class="mb-3">
+        <label for="newTitle" class="form-label">Property name</label>
+        <input type="text" class="form-control" id="newTitle" placeholder="Property  name" name="title" value="<%- listed.title %>">
+    </div>
+    <div class="mb-3">
+        <label for="newDescription" class="form-label">Description</label>
+        <textarea name="description" id="newDescription" class="form-control" placeholder="Describe the property."><%- listed.description %></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="newLocation" class="form-label">Location</label>
+        <input type="text" class="form-control" id="newLocation" placeholder="Location" name="location" value="<%- listed.location %>">
+    </div><div class="mb-3">
+        <label for="newCountry" class="form-label">Country</label>
+        <input type="text" class="form-control" id="newCountry" placeholder="Country" name="country" value="<%- listed.country %>">
+    </div>
+    </div>
+    <div class="mb-3">
+        <label for="newImage" class="form-label">Image url</label>
+        <input type="url" class="form-control" id="newImage" placeholder="Image URL" name="image" value="<%- listed.image %>">
+    </div>
+    <div class="mb-3">
+        <label for="newPrice" class="form-label">Price</label>
+        <input type="number" class="form-control" id="newPrice" placeholder="Pricing" name="price" value="<%- listed.price %>">
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">I am the sole person responsible for this property and these new updated listing.</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

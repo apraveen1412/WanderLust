@@ -46,7 +46,7 @@ app.post('/listings/create', async (req, res)=>{
         location: newProperty.location,
         country: newProperty.country,
     });
-    temp.save(); 
+    await temp.save(); 
     console.log(temp);
     res.redirect('/listings');
 });
@@ -54,8 +54,18 @@ app.delete('/listings/:id/delete', async (req, res)=>{
     let {id} = req.params;
     await listing.findByIdAndDelete({_id: id});
     res.redirect('/listings');
-})
-
+});
+app.get("/listings/:id/edit", async (req, res)=>{
+    let {id} = req.params;
+    const listed = await listing.findById(id);
+    renderer('edit', {listed}, res);
+    // res.send('Edit route');
+});
+app.put("/listings/:id", async (req, res)=>{
+    let {id} = req.params;
+    await listing.findByIdAndUpdate(id, req.body, {returnDocument: 'after'});
+    res.redirect(`/listings/${id}`);
+});
 app.get("/listings/:id", async (req, res)=>{
     let {id} = req.params;
     const listed = await listing.findById(id);

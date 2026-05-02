@@ -1,15 +1,17 @@
-<div class="show-listing container-md  d-flex flex-row justify-content-center align-items-center">
+<div class="show-listing d-flex">
     <div class="listed-details">
-        <div class="listed-item-title d-flex justify-content-center align-items-center">
+        <div class="listed-item-title d-flex">
             <h2 class="card-title"><%- listed.title %></h2>
-            <a href="#" type="button" id="showShare"><i class="fa-solid fa-arrow-up-from-bracket"></i></a>
-            <a href="#" type="button" id="showWishlist"><i class="fa-regular fa-heart"></i></a>
-            <form action="/listings/<%- listed._id %>/delete?_method=DELETE" method="post">
-                <input type="hidden" name="delete" value="<%- listed._id %>">
-                <button type="submit" id="showDel"><i class="fa-solid fa-trash-can"></i></button>
-            </form>
+            <div class="listing-options">
+                <a href="#" type="button" id="showShare"><i class="fa-solid fa-arrow-up-from-bracket"></i></a>
+                <a href="#" type="button" id="showWishlist"><i class="fa-regular fa-heart"></i></a>
+                <form action="/listings/<%- listed._id %>/delete?_method=DELETE" method="post">
+                    <input type="hidden" name="delete" value="<%- listed._id %>">
+                    <button type="submit" id="showDel"><i class="fa-solid fa-trash-can"></i></button>
+                </form>
+            </div>
         </div>
-        <h4>Details</h4>
+        <h5>Details</h5>
         <ul>
             <li><%- listed.description %></li>
             <li><%- listed.location %></li>
@@ -21,4 +23,7 @@
         </div>
     </div>
     <img src='<%- listed.image %>' class="card-img-top listed-item-img" alt='<%- listed.title %>'>
+    <a href="/listings/<%- listed._id %>/edit" id="showEdit">
+        <i class="fa-solid fa-pen-to-square"></i>
+    </a>
 </div>
