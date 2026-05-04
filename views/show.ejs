@@ -1,3 +1,5 @@
+<%- layout('layouts/boilerplate') %>
+
 <div class="show-listing d-flex">
     <div class="listed-details">
         <div class="listed-item-title d-flex">
@@ -5,7 +7,7 @@
             <div class="listing-options">
                 <a href="#" type="button" id="showShare"><i class="fa-solid fa-arrow-up-from-bracket"></i></a>
                 <a href="#" type="button" id="showWishlist"><i class="fa-regular fa-heart"></i></a>
-                <form action="/listings/<%- listed._id %>/delete?_method=DELETE" method="post">
+                <form action="/listings/<%- listed._id %>?_method=DELETE" method="post">
                     <input type="hidden" name="delete" value="<%- listed._id %>">
                     <button type="submit" id="showDel"><i class="fa-solid fa-trash-can"></i></button>
                 </form>

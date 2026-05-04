@@ -1,5 +1,7 @@
+<%- layout('layouts/boilerplate') %>
+
 <h3 id="newHeading">Enter the details of the new property</h3>
-<form action="/listings/create" method="post" class="newListing d-flex flex-column">
+<form action="/listings" method="post" class="newListing d-flex flex-column">
     <div class="mb-3">
         <label for="newTitle" class="form-label">Property name</label>
         <input type="text" class="form-control" id="newTitle" placeholder="Property  name" name="title">
