@@ -1,36 +1,34 @@
 <%- layout('layouts/boilerplate') %>
 
-<div class="show-listing d-flex">
-    <div class="listed-details">
-        <div class="listed-item-title d-flex">
-            <h2 class="card-title"><%- listed.title %></h2>
-            <div class="listing-options">
-                <a href="#" type="button" id="showShare"><i class="fa-solid fa-arrow-up-from-bracket"></i></a>
-                <a href="#" type="button" id="showWishlist"><i class="fa-regular fa-heart"></i></a>
-                <form action="/listings/<%- listed._id %>?_method=DELETE" method="post">
-                    <input type="hidden" name="delete" value="<%- listed._id %>">
-                    <button type="submit" id="showDel"><i class="fa-solid fa-trash-can"></i></button>
-                </form>
+<div class="card show-listing">
+    <div class="show-list-info">
+        <div class="card-body">
+            <div class="listed-item-title">
+                <h2 class="card-title"><%- listed.title %></h2>
+                <div class="listing-options">
+                    <a href="#" type="button" id="showShare"><i class="fa-solid fa-arrow-up-from-bracket"></i></a>
+                    <a href="#" type="button" id="showWishlist"><i class="fa-regular fa-heart"></i></a>
+                    <form action="/listings/<%- listed._id %>?_method=DELETE" method="post">
+                        <input type="hidden" name="delete" value="<%- listed._id %>">
+                        <button type="submit" id="showDel"><i class="fa-solid fa-trash-can"></i></button>
+                    </form>
+                </div>
             </div>
-        </div>
-        <h5>Details</h5>
-        <ul>
-            <li><%- listed.description %></li>
-            <li><%- listed.location %></li>
-            <li><%- listed.country %></li>
-        </ul>
-        <div class="listed-item-dets d-flex">
-            <p>₹<%- listed.price.toLocaleString("en-in")%><small>/per day</small></p>
-            <p>Hosting since <%- listed.createdAt.toLocaleString("en-GB", { year: 'numeric' }) %></p>
+            <h5>Details</h5>
+            <p><%- listed.description %><br><b>Location</b>: <%- listed.location %>, <%- listed.country %></p>
+            <div class="listed-item-dets d-flex">
+                <p class="card-text">₹<%- listed.price.toLocaleString("en-in")%><small>/per day</small></p>
+                <p class="card-text">Hosting since <%- listed.createdAt.toLocaleString("en-GB", { year: 'numeric' }) %></p>
+            </div>
+            <a href="/listings/<%- listed._id %>/edit" id="showEdit">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </a>
         </div>
     </div>
     <img src='<%= listed.image.includes("unsplash.com") 
-                ? listed.image.split("?")[0] + "?w=400&q=60&auto=format&fit=crop" 
-                : listed.image %>' 
-                class="card-img-top list-card-img" 
-                alt="<%= listed.title %>"
-                loading="lazy">
-    <a href="/listings/<%- listed._id %>/edit" id="showEdit">
-        <i class="fa-solid fa-pen-to-square"></i>
-    </a>
+              ? listed.image.split("?")[0] + "?w=400&q=60&auto=format&fit=crop" 
+              : listed.image %>' 
+              class="card-img-top listed-item-img" 
+              alt="<%= listed.title %>"
+              loading="lazy">
 </div>

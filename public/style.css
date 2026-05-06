@@ -1,9 +1,16 @@
 
 /* listing */
+body:has(.listing-cards){
+    display: flex;
+    height: 100vh;
+    justify-content: space-between;
+    flex-direction: column;
+}
 .listing-cards{
     row-gap: 1rem;
     margin-top: 3.5rem;
     margin-bottom: 3rem;
+    position: relative;
 }
 .listing-cards a{
     text-decoration: none;
@@ -21,56 +28,67 @@
   transform: scale(1.05);
   filter: brightness(0.95);
 }
+.wishlistBtn{
+    border: none;
+    background: transparent;
+    position: absolute;
+    left: 16rem;
+    color: #3c3c3c;
+}
 
 /* show */
+/* show */
+
+body:has(.show-listing) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+}
 
 .show-listing {
     position: relative;
-    top: 25vh;
-    left: 20vw;
     display: flex;
     gap: 2rem;
     padding: 1rem;
-    background-color: blanchedalmond;
+    background-color: rgb(224, 224, 224);
     border-radius: 1rem;
-    width: 60vw;
-    justify-content: center;
+    width: 80vw !important;
+    flex-direction: row;
+    align-items: center;
 }
-.show-listing.container-md {
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
+
 .listed-item-title {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
 .listing-options {
     display: flex;
     gap: 0.3rem;
+    margin-left: 1rem;
 }
-.show-listing img {width: 30vw;}
+
 .listed-item-img {
     height: 25rem;
     width: 100%;
     object-fit: cover;
     object-position: 0% 70%;
 }
-.listed-details ul {
-    padding-left: 0;
-}
-.listed-details ul li {
-    list-style: none;
-}
+
 .listed-item-dets {
     display: flex;
     gap: 0.3rem;
 }
+
 .listed-item-dets p + p::before {
     content: "•";
     margin-right: 0.3rem;
     color: #555;
 }
+
 #showDel,
 #showWishlist,
 #showShare {
@@ -135,19 +153,24 @@ body:has(.newListing, .editListing) .navbar{
 .navbar{
     min-height: 5rem;
     background-color: white !important;
+    width: 100%;
 }
 .navbar-brand{
     color: #fe424d;
     font-size: 2rem;
 }
-/* .navbar .container-md{
-    display: flex;
-    flex-wrap: inherit;
-    align-items: unset;
-    justify-content: center;
-} */
 .nav-link{
     color: #222222 !important;
+}
+.navbar-collapse{
+    margin-top: 0.9rem;
+    background-color: white;
+    padding: 1rem;
+    padding-top: 0rem;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    transition: 0.2s ease;
+    box-shadow: 0px 10px 20px 0px #0000004f;
 }
 
 /* edit */
@@ -158,6 +181,7 @@ body:has(.newListing, .editListing) .navbar{
 
 
 /* footer */
+footer{width: 100%;}
 .footer-info{
     display: flex;
     justify-content: center;
