@@ -1,18 +1,25 @@
-<nav class="navbar bg-body-tertiary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/listings">WanderLust</a>
-        <div class="btn-group dropstart">
-            <button type="button" class="btn" id="nav-three-bar" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa-solid fa-bars"></i>
-            </button>
-            <ul class="dropdown-menu">
-              <!-- Dropdown menu links -->
-              <li><a class="dropdown-item" href="/listings/new">Become a host</a></li>
-              <li><a class="dropdown-item" href="#">Refer a host</a></li>
-              <li><a class="dropdown-item" href="#">Find a co-host</a></li>      
-              <li><hr class="dropdown-divider"></li>        
-              <li><a class="dropdown-item" href="#">Login or Sign up</a></li>
-            </ul>
-        </div>
+<nav class="navbar navbar-expand-xl bg-light sticky-top border-bottom">
+  <div class="container-md ">
+    <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i>WanderLust</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/listings">All listings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/listings/new">Add new listing</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search" method="get" action="/listings/search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
+  </div>
 </nav>

@@ -1,13 +1,30 @@
 <%- layout('layouts/boilerplate') %>
 
+<% if (typeof search !== 'undefined') { %>
+    <p class="text-center mt-3">
+        <% if (list.length === 0) { %>
+            No results found for "<%= search %>" 
+            <a href="/listings">View all listings</a>
+        <% } else { %>
+            <%= list.length %> result(s) for "<%= search %>"
+        <% } %>
+    </p>
+<% } %>
+
 <div class="listing-cards container-md d-flex flex-wrap justify-content-evenly">
     <% for( let item of list ) { %>
         <div class="card listed-card" style="width: 18rem;">
-            <img src='<%- item.image %>' class="card-img-top list-card-img" alt='<%- item.title %>'>
+            <img src='<%= item.image.includes("unsplash.com") 
+                ? item.image.split("?")[0] + "?w=400&q=60&auto=format&fit=crop" 
+                : item.image %>' 
+                class="card-img-top list-card-img" 
+                alt="<%= item.title %>"
+                loading="lazy">
             <div class="card-body">
               <a href="/listings/<%- item._id %>"><h6 class="card-title"><%- item.title %></h6></a>
               <p class="card-text">₹<%- item.price.toLocaleString("en-in") %> for 1 night</p>
             </div>
+            butt
         </div>
     <% } %>
 </div>

@@ -22,15 +22,28 @@ main()
     .catch((err)=>console.log(err));
 
 
+
 app.get("/listings", async (req, res)=>{
     const list = await listing.find({});
-    res.render('listing', {list});
+    res.render('listing', {list, search: undefined});
     // renderer('listing', {list}, res);
 });
 
 app.get("/listings/new", async (req, res)=>{
     res.render('new', {});
 });
+
+app.get("/listings/search", async (req, res)=>{
+    let {search} = req.query;
+    const list = await listing.find({title: { $regex: new RegExp(search, 'i') }});
+    // Handle no results
+    if (list.length === 0) {
+        return res.render('listing', { list: [], search });
+    }
+
+    res.render('listing', { list, search });
+});
+
 app.post('/listings/', async (req, res)=>{
     let newProperty = req.body;
     let temp = new listing({
@@ -45,27 +58,30 @@ app.post('/listings/', async (req, res)=>{
     console.log(temp);
     res.redirect('/listings');
 });
+
 app.delete('/listings/:id', async (req, res)=>{
     let {id} = req.params;
     await listing.findByIdAndDelete({_id: id});
     res.redirect('/listings');
 });
+
 app.get("/listings/:id/edit", async (req, res)=>{
     let {id} = req.params;
     const listed = await listing.findById(id);
     res.render('edit', {listed});
 });
+
 app.put("/listings/:id", async (req, res)=>{
     let {id} = req.params;
     await listing.findByIdAndUpdate(id, req.body, {returnDocument: 'after'});
     res.redirect(`/listings/${id}`);
 });
+
 app.get("/listings/:id", async (req, res)=>{
     let {id} = req.params;
     const listed = await listing.findById(id);
     res.render('show', {listed});
 });
-
 
 
 

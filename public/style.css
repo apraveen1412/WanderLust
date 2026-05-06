@@ -2,6 +2,8 @@
 /* listing */
 .listing-cards{
     row-gap: 1rem;
+    margin-top: 3.5rem;
+    margin-bottom: 3rem;
 }
 .listing-cards a{
     text-decoration: none;
@@ -130,20 +132,22 @@ body:has(.newListing, .editListing) .navbar{
 }
 
 /* navbar */
-#nav-three-bar {
-    border: none;
-    box-shadow: none;
+.navbar{
+    min-height: 5rem;
+    background-color: white !important;
 }
-
-#nav-three-bar:hover{
-    transition: 0.5s ease;
-    transform: scale(1.1);
+.navbar-brand{
+    color: #fe424d;
+    font-size: 2rem;
 }
-#nav-three-bar:focus,
-#nav-three-bar:active {
-    border: none;
-    outline: none;
-    box-shadow: none;
+/* .navbar .container-md{
+    display: flex;
+    flex-wrap: inherit;
+    align-items: unset;
+    justify-content: center;
+} */
+.nav-link{
+    color: #222222 !important;
 }
 
 /* edit */
@@ -151,3 +155,23 @@ body:has(.newListing, .editListing) .navbar{
     position: absolute;
     top: 14vh;
 }
+
+
+/* footer */
+.footer-info{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 0rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    background-color: #ebebeb;
+}
+.footer-info a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.2rem;
+}
+.f-info-links a{font-size: 1rem;}
+.f-info-links a:hover{text-decoration: underline;}
