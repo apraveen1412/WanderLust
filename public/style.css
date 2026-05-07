@@ -33,11 +33,27 @@ body{
   filter: brightness(0.95);
 }
 .wishlistBtn{
-    border: none;
-    background: transparent;
     position: absolute;
-    left: 16rem;
+    top: 0.2rem;
+    right: 0.3rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.247);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #3c3c3c;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+.wishlistBtn:hover{
+    background-color: rgba(255,255,255,0.85);
+    transform: scale(1.1);
+}
+.listing-img-container{
+    position: relative;
 }
 
 
@@ -51,7 +67,6 @@ body{
     padding: 1rem;
     background-color: rgb(224, 224, 224);
     border-radius: 1rem;
-    width: 80vw !important;
     flex-direction: row;
     align-items: center;
 }
@@ -69,8 +84,9 @@ body{
 }
 
 .listed-item-img {
-    height: auto;
     width: 100%;
+    max-width: 50rem;
+    height: 30rem;
     object-fit: cover;
     object-position: 0% 70%;
     border-radius: 0.5rem;
@@ -108,22 +124,26 @@ body{
 
 #showEdit {
     position: absolute;
-    top: 0.8rem;
-    right: 0.8rem;
-    margin: 0;
-    padding: 0.4rem;
-    border: none;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
     color: black;
+    text-decoration: none;
     transition: 0.2s ease;
 }
 
 #showEdit:hover {
     transform: scale(1.1);
 }
-
+.show-img-container{
+    position: relative;
+}
 
 
 /* new listing */
@@ -168,7 +188,6 @@ body:has(.newListing, .editListing) .navbar{
     border-bottom-right-radius: 0.5rem;
     border-bottom-left-radius: 0.5rem;
     transition: 0.2s ease;
-    box-shadow: 0px 10px 20px 0px #0000004f;
 }
 
 /* edit */
