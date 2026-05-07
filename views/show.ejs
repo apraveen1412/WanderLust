@@ -26,9 +26,9 @@
         </div>
     </div>
     <img src='<%= listed.image.includes("unsplash.com") 
-              ? listed.image.split("?")[0] + "?w=400&q=60&auto=format&fit=crop" 
-              : listed.image %>' 
-              class="card-img-top listed-item-img" 
-              alt="<%= listed.title %>"
-              loading="lazy">
+      ? listed.image.split("?")[0] + "?w=400&q=60&auto=format&fit=crop" 
+      : listed.image %>' 
+      class="listed-item-img" 
+      alt="<%= listed.title %>"
+      loading="lazy">
 </div>
