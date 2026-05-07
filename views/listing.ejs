@@ -15,7 +15,7 @@
     <div class="row g-4">
         <% for(let item of list) { %>
             <div class="col-lg-4 col-md-6 col-12">
-                <div class="card listed-card h-100">
+                <div class="card listed-card">
                     <div class="listing-img-container">
                         <img 
                             src='<%= item.image.includes("unsplash.com") 
@@ -31,7 +31,7 @@
                     </div>
                     <div class="card-body">
                         <a href="/listings/<%- item._id %>"><h6 class="card-title"><%- item.title %></h6></a>
-                        <p class="card-text">₹<%- item.price.toLocaleString("en-in") %> for 1 night</p>
+                        <p class="card-text">₹<%- item.price.toLocaleString("en-in") %> / night</p>
                     </div>
                 </div>
             </div>

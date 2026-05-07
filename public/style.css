@@ -12,7 +12,7 @@ body{
 
 .listing-cards{
     row-gap: 1rem;
-    margin-top: 3.5rem;
+    margin-top: 2rem;
     margin-bottom: 3rem;
     position: relative;
 }
@@ -20,12 +20,17 @@ body{
     text-decoration: none;
     color: black;
 }
+.listed-card{    
+    border: none;
+    background: transparent;
+}
+.listed-card h6{font-size: 1.15rem;}
+.listed-card h6, p{margin: 0rem;}
 .list-card-img{
-    height: 11rem;
+    height: 20rem;
     width: 100%;
+    border-radius: 1rem !important;
     object-fit: cover;
-    object-position: top;
-    object-position: bottom;
     object-position: 30% 40%;
 }
 .listed-card:hover {
@@ -65,8 +70,8 @@ body{
     display: flex;
     gap: 2rem;
     padding: 1rem;
-    background-color: rgb(224, 224, 224);
     border-radius: 1rem;
+    border: none;
     flex-direction: row;
     align-items: center;
 }
@@ -151,8 +156,7 @@ body{
 .newListing , .editListing{
     display: flex;
     position: relative;
-    width: 30rem;
-    background-color: whitesmoke;
+    width: 80%;
     border-radius: 0.5rem;
     padding: 1rem;
 }
@@ -165,6 +169,9 @@ body:has(.newListing, .editListing) .navbar{
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+.new-item1 .mb-3, .edit-item1 .mb-3{
+    width: 49.6%;
 }
 
 /* navbar */
@@ -193,9 +200,20 @@ body:has(.newListing, .editListing) .navbar{
 /* edit */
 #updateHeading, #newHeading{
     position: absolute;
-    top: 12vh;
+    top: 16vh;
 }
-
+.updatePost, .newPostBtn{
+    background-color: #fe424d;
+    color: white;
+    border: none;
+    align-self: self-start;
+    transition: 0.2s ease;
+}
+.updatePost:hover, .newPostBtn:hover{
+    background-color: red;
+    color: white;
+    transform: scale(1.05);
+}
 
 /* footer */
 footer{width: 100%;}
@@ -207,7 +225,8 @@ footer{width: 100%;}
     margin: 0rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    background-color: #ebebeb;
+    border-top: 1px solid #dee2e6;
+    background-color: #ebebeb63;
 }
 .footer-info a {
     text-decoration: none;
@@ -216,3 +235,104 @@ footer{width: 100%;}
 }
 .f-info-links a{font-size: 1rem;}
 .f-info-links a:hover{text-decoration: underline;}
+
+
+
+
+
+/* MOBILE LARGE */
+
+@media (max-width: 425px){
+    /* show */
+    .show-listing{
+        flex-direction: column-reverse;
+        width: 95vw !important;
+        gap: 1rem;
+        padding: 0.8rem;
+    }
+    .show-img-container{
+        width: 100%;
+    }
+    .listed-item-img{
+        width: 100%;
+        height: 15rem;
+        object-fit: cover;
+    }
+    .listed-item-title{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.7rem;
+    }
+    .listing-options{
+        margin-left: 0rem;
+    }
+    .listed-item-dets{
+        flex-direction: column;
+        gap: 0rem;
+    }
+    .listed-item-dets p + p::before{
+        content: "";
+        margin: 0;
+    }
+    #showEdit{
+        top: 0.7rem;
+        right: 0.7rem;
+    }
+}
+
+
+
+
+/* MOBILE MEDIUM */
+
+@media (min-width: 426px) and (max-width: 768px){
+    /* show */
+    .show-listing{
+        flex-direction: column-reverse;
+        width: 92vw !important;
+        gap: 1.5rem;
+    }
+    .show-img-container{
+        width: 100%;
+    }
+    .listed-item-img{
+        width: 100%;
+        height: 20rem;
+        object-fit: cover;
+    }
+    .listed-item-title{
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0.8rem;
+    }
+    .listing-options{
+        margin-left: 0rem;
+    }
+    .listed-item-dets{
+        flex-wrap: wrap;
+    }
+    #showEdit{
+        top: 0.8rem;
+        right: 0.8rem;
+    }
+}
+
+
+
+
+
+/* MOBILE SMALL TABLETS */
+
+@media (min-width: 769px) and (max-width: 1024px){
+    /* show */
+    .show-listing{
+        width: 92vw !important;
+        gap: 1.5rem;
+    }
+    .listed-item-img{
+        width: 100%;
+        max-width: 30rem;
+        height: 25rem;
+        object-fit: cover;
+    }
+}
