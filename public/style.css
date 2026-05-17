@@ -235,6 +235,7 @@ footer{width: 100%;}
 }
 .f-info-links a{font-size: 1rem;}
 .f-info-links a:hover{text-decoration: underline;}
+.f-info-socials a i:hover{transform: scale(1.02);}
 
 
 

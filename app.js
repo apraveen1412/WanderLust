@@ -23,6 +23,7 @@ main()
 
 
 
+app.get('/', (req, res)=>{res.redirect('/listings')});
 app.get("/listings", async (req, res)=>{
     const list = await listing.find({});
     res.render('listing', {list, search: undefined});
