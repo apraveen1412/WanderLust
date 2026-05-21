@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const listingSchema = new mongoose.Schema({
     title : {
@@ -29,6 +29,5 @@ const listingSchema = new mongoose.Schema({
     },
 }, {timestamps: true});
 
-const Listing = mongoose.model('Listing', listingSchema);
+export const Listing = mongoose.model('Listing', listingSchema);
 
-module.exports = Listing;

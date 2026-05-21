@@ -17,14 +17,14 @@
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="card listed-card">
                     <div class="listing-img-container">
-                        <img 
+                        <a href="/listings/<%- item._id %>"><img 
                             src='<%= item.image.includes("unsplash.com") 
                                 ? item.image.split("?")[0] + "?w=400&q=60&auto=format&fit=crop" 
                                 : item.image %>' 
                             class="card-img-top list-card-img" 
                             alt="<%= item.title %>"
                             loading="lazy"
-                        >
+                        ></a>
                         <button type="button" class="wishlistBtn">
                             <i class="fa-regular fa-heart"></i>
                         </button>

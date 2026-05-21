@@ -1,16 +1,31 @@
-const express = require('express');
+//CJS
+
+// const express = require('express');
+
+// const mongoose = require('mongoose');
+// const methodOverride = require('method-override');
+// const path = require('path');
+// const ejsMate = require('ejs-mate');
+
+
+// ES6
+import express from 'express';
+import mongoose from 'mongoose';
+import methodOverride from 'method-override';
+import path from 'path';
+import ejsMate from 'ejs-mate';
+
 const app = express();
-const mongoose = require('mongoose');
-const methodOverride = require('method-override');
-const path = require('path');
-const ejsMate = require('ejs-mate');
 
 //models
-const listing = require('./DB_model/listing.js');
+import {Listing as listing} from './DB_model/listing.js' ;
 
-app.set('views', path.join(__dirname, 'views'));
+// Error handler
+import ExpressError from './ExpressError.js'
+
+app.set('views', path.join('views'));
 app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join('public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate)
@@ -30,11 +45,20 @@ app.get("/listings", async (req, res)=>{
     // renderer('listing', {list}, res);
 });
 
-app.get("/listings/new", async (req, res)=>{
-    res.render('new', {});
-});
+// Async Wrapper
+function asyncWrap(fn){
+    return function(req, res, next){
+        fn(req, res, next).catch(next);
+    };
+}
 
-app.get("/listings/search", async (req, res)=>{
+// new listing route
+app.get("/listings/new", asyncWrap(async (req, res)=>{
+    res.render('new', {});
+}));
+
+// search handling route
+app.get("/listings/search", asyncWrap(async (req, res)=>{
     let {search} = req.query;
     const list = await listing.find({title: { $regex: new RegExp(search, 'i') }});
     // Handle no results
@@ -43,9 +67,10 @@ app.get("/listings/search", async (req, res)=>{
     }
 
     res.render('listing', { list, search });
-});
+}));
 
-app.post('/listings/', async (req, res)=>{
+// creates a new listing in DB
+app.post('/listings/', asyncWrap(async (req, res)=>{
     let newProperty = req.body;
     let temp = new listing({
         title: newProperty.title,
@@ -58,29 +83,36 @@ app.post('/listings/', async (req, res)=>{
     await temp.save(); 
     console.log(temp);
     res.redirect('/listings');
-});
+}));
 
-app.delete('/listings/:id', async (req, res)=>{
+// deletes a specific lising
+app.delete('/listings/:id', asyncWrap(async (req, res)=>{
     let {id} = req.params;
-    await listing.findByIdAndDelete({_id: id});
+    const listed = await listing.findByIdAndDelete({_id: id});
+    if(!listed) return next(new ExpressError(404, "Nothing to delete"));
     res.redirect('/listings');
-});
+}));
 
+// edit handling route
 app.get("/listings/:id/edit", async (req, res)=>{
     let {id} = req.params;
     const listed = await listing.findById(id);
+    if(!listed) return next(new ExpressError(404, "Listing doesn't exist"));
     res.render('edit', {listed});
 });
 
+// edits a specific listing
 app.put("/listings/:id", async (req, res)=>{
     let {id} = req.params;
     await listing.findByIdAndUpdate(id, req.body, {returnDocument: 'after'});
     res.redirect(`/listings/${id}`);
 });
 
-app.get("/listings/:id", async (req, res)=>{
+// show lisitng route
+app.get("/listings/:id", async (req, res, next)=>{
     let {id} = req.params;
     const listed = await listing.findById(id);
+    if(!listed) return next(new ExpressError(404, "Listing doesn't exist"));
     res.render('show', {listed});
 });
 
