@@ -1,10 +1,11 @@
 <%- layout('layouts/boilerplate') %>
 
 <h3 id="newHeading">Create New Listing</h3>
-<form action="/listings" method="post" class="newListing d-flex flex-column">
+<form action="/listings" method="post" class="newListing d-flex flex-column needs-validation" novalidate>
     <div class="mb-3">
-        <label for="newTitle" class="form-label">Property name</label>
-        <input type="text" class="form-control" id="newTitle" placeholder="Property  name" name="title">
+        <label for="newTitle" class="form-label ">Property name</label>
+        <input type="text" class="form-control" id="newTitle" placeholder="Property  name" name="title" required>
+        <div class="invalid-feedback">Please enter the property name.</div>
     </div>
     <div class="mb-3">
         <label for="newDescription" class="form-label">Description</label>
@@ -13,11 +14,13 @@
     <div class="new-item1 d-flex justify-content-evenly">
         <div class="mb-3">
             <label for="newCountry" class="form-label">Country</label>
-            <input type="text" class="form-control" id="newCountry" placeholder="Country" name="country">
+            <input type="text" class="form-control" id="newCountry" placeholder="Country" name="country" required>
+        <div class="invalid-feedback">Please enter a valid country name.</div>
         </div>
         <div class="mb-3">
-            <label for="newPrice" class="form-label">Price</label>
-            <input type="number" class="form-control" id="newPrice" placeholder="Pricing" name="price">
+            <label for="newPrice" class="form-label" >Price</label>
+            <input type="number" class="form-control" id="newPrice" placeholder="Pricing" name="price" required>
+        <div class="invalid-feedback">Please enter a valid price.</div>
         </div>
     </div>
     </div>
@@ -27,10 +30,11 @@
     </div>
     <div class="mb-3">
         <label for="newLocation" class="form-label">Location</label>
-        <input type="text" class="form-control" id="newLocation" placeholder="Location" name="location">
+        <input type="text" class="form-control" id="newLocation" placeholder="Location" name="location" required>
+        <div class="invalid-feedback">Please enter a valid location.</div>
     </div>
     <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
         <label class="form-check-label" for="exampleCheck1">I am the sole person responsible for this property.</label>
     </div>
     <button type="submit" class="btn newPostBtn">Post Listing</button>

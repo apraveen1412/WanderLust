@@ -42,7 +42,6 @@ app.get('/', (req, res)=>{res.redirect('/listings')});
 app.get("/listings", async (req, res)=>{
     const list = await listing.find({});
     res.render('listing', {list, search: undefined});
-    // renderer('listing', {list}, res);
 });
 
 // Async Wrapper
@@ -94,12 +93,12 @@ app.delete('/listings/:id', asyncWrap(async (req, res)=>{
 }));
 
 // edit handling route
-app.get("/listings/:id/edit", async (req, res)=>{
+app.get("/listings/:id/edit", asyncWrap(async (req, res)=>{
     let {id} = req.params;
     const listed = await listing.findById(id);
     if(!listed) return next(new ExpressError(404, "Listing doesn't exist"));
     res.render('edit', {listed});
-});
+}));
 
 // edits a specific listing
 app.put("/listings/:id", async (req, res)=>{
@@ -116,6 +115,17 @@ app.get("/listings/:id", async (req, res, next)=>{
     res.render('show', {listed});
 });
 
+
+// 404 Route Handler
+app.use((req, res, next)=>{
+    res.status(404).render('PNF')
+});
+// Error handler
+app.use((err, req, res, next)=>{
+    let {status = 500, message = "Something went wrong"} = err;
+
+    res.status(status).send(message);
+});
 
 
 app.listen(8080, ()=>{console.log('Sever is running on port: 8080')});
