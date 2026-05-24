@@ -21,7 +21,7 @@ const app = express();
 import {Listing as listing} from './DB_model/listing.js' ;
 
 // Error handler
-import ExpressError from './ExpressError.js'
+import ExpressError from './views/errors/ExpressError.js'
 
 app.set('views', path.join('views'));
 app.set('view engine', 'ejs');
@@ -59,7 +59,12 @@ app.get("/listings/new", asyncWrap(async (req, res)=>{
 // search handling route
 app.get("/listings/search", asyncWrap(async (req, res)=>{
     let {search} = req.query;
-    const list = await listing.find({title: { $regex: new RegExp(search, 'i') }});
+    const list = await listing.find({
+        $or: [
+            {title: { $regex: new RegExp(search, 'i') }},
+            {location: { $regex: new RegExp(search, 'i') }},
+            {country: { $regex: new RegExp(search, 'i') }},
+        ]});
     // Handle no results
     if (list.length === 0) {
         return res.render('listing', { list: [], search });
@@ -108,22 +113,24 @@ app.put("/listings/:id", async (req, res)=>{
 });
 
 // show lisitng route
-app.get("/listings/:id", async (req, res, next)=>{
+app.get("/listings/:id", asyncWrap(async (req, res, next)=>{
     let {id} = req.params;
-    const listed = await listing.findById(id);
-    if(!listed) return next(new ExpressError(404, "Listing doesn't exist"));
-    res.render('show', {listed});
-});
+    if(!mongoose.Types.ObjectId.isValid(id))    return next( new ExpressError(404, "Invalid listing"));
+    else{
+        const listed = await listing.findById(id);
+        if(!listed) return next( new ExpressError(404, "Listing doesn't exist"));
+        else res.render('show', {listed});
+    }
+}));
 
 
-// 404 Route Handler
-app.use((req, res, next)=>{
-    res.status(404).render('PNF')
-});
 // Error handler
 app.use((err, req, res, next)=>{
     let {status = 500, message = "Something went wrong"} = err;
-
+    console.error(message);
+    if(status === 404){
+        return res.status(404).render('./errors/PNF.ejs', {message});
+    }
     res.status(status).send(message);
 });
 
