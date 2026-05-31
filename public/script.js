@@ -1,6 +1,6 @@
+// Navbar
 const navbarToggler = document.querySelector(".navbar-toggler");
 const navbarCollapse = document.querySelector(".navbar-collapse");
-
 if (navbarToggler && navbarCollapse) {
 
     document.addEventListener("click", (e) => {
@@ -21,6 +21,32 @@ if (navbarToggler && navbarCollapse) {
 
 }
 
+
+// show
+const showWishlist = document.querySelector('.showWishlist');
+
+if (showWishlist) {
+    showWishlist.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        showWishlist.classList.toggle('fa-regular');
+        showWishlist.classList.toggle('fa-solid');
+        showWishlist.classList.toggle('pop');
+
+        if (showWishlist.classList.contains('fa-solid')) {
+            showWishlist.style.color = 'rgb(255, 89, 119)';
+        } else {
+            showWishlist.style.color = '';
+        }
+
+        setTimeout(() => {
+            showWishlist.classList.remove('pop');
+        }, 300);
+    });
+}
+
+
+// new and edit
 const needsValidation = document.querySelector('.needs-validation');
 if(needsValidation){
     

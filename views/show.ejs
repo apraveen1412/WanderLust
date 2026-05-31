@@ -7,7 +7,10 @@
                 <h2 class="card-title"><%- listed.title %></h2>
                 <div class="listing-options">
                     <a href="#" type="button" id="showShare"><i class="fa-solid fa-arrow-up-from-bracket"></i></a>
-                    <a href="#" type="button" id="showWishlist"><i class="fa-regular fa-heart"></i></a>
+                    <a href="#" id="showWishlist">
+                        <i class="fa-regular fa-heart showWishlist">
+                        </i>
+                    </a>
                     <form action="/listings/<%- listed._id %>?_method=DELETE" method="post">
                         <input type="hidden" name="delete" value="<%- listed._id %>">
                         <button type="submit" id="showDel"><i class="fa-solid fa-trash-can"></i></button>

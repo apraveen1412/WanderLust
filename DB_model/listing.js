@@ -5,6 +5,10 @@ const listingSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+        match: [
+            /^[^0-9].*/,
+            "Title should not start with a number"
+        ]
     },
     description : {
         type: String,

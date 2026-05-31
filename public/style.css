@@ -149,6 +149,8 @@ body{
 .show-img-container{
     position: relative;
 }
+.showWishlist {transition: transform 0.2s ease;}
+.pop {transform: scale(1.5);}
 
 
 /* new listing */
@@ -173,7 +175,7 @@ body:has(.newListing, .editListing) .navbar{
 .new-item1 .mb-3, .edit-item1 .mb-3{
     width: 49.6%;
 }
-
+.new-alert, .ed-alert {margin-top: 7rem;}
 /* navbar */
 .navbar{
     min-height: 5rem;

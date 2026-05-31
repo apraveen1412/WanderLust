@@ -20,13 +20,16 @@ const app = express();
 //models
 import {Listing as listing} from './DB_model/listing.js' ;
 
-// Error handler
-import ExpressError from './views/errors/ExpressError.js'
+// Error handler and validators
+import ExpressError from './middleware/ExpressError.js'
+import errorHandler from './middleware/errorHandler.js';
+import listingSchema from './schema.js';
 
 app.set('views', path.join('views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join('public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate)
 async function main(){
@@ -51,66 +54,77 @@ function asyncWrap(fn){
     };
 }
 
+//serverside validation
+const validateListing = (route) => {
+    return async (req, res, next) => {
+        let { error } = listingSchema.validate(req.body, { abortEarly: false });
+        if (error) {
+            error.view = route;
+            if (req.params.id) {
+                error.listed = await listing.findById(req.params.id);
+            }
+            return next(error);
+        }
+        next();
+    }
+}
+
 // new listing route
-app.get("/listings/new", asyncWrap(async (req, res)=>{
+app.get("/listings/new", asyncWrap(async (req, res, next)=>{
     res.render('new', {});
 }));
 
 // search handling route
-app.get("/listings/search", asyncWrap(async (req, res)=>{
+app.get("/listings/search", asyncWrap(async (req, res, next)=>{
     let {search} = req.query;
-    const list = await listing.find({
+    if(search !== ''){
+        const list = await listing.find({
         $or: [
             {title: { $regex: new RegExp(search, 'i') }},
             {location: { $regex: new RegExp(search, 'i') }},
             {country: { $regex: new RegExp(search, 'i') }},
         ]});
-    // Handle no results
-    if (list.length === 0) {
-        return res.render('listing', { list: [], search });
-    }
+        // Handle no results
+        if (list.length === 0) {
+            return res.render('listing', { list: [], search });
+        }
 
-    res.render('listing', { list, search });
+        res.render('listing', { list, search });
+    }
+    else return res.render('listing', { list: [], search });
 }));
 
 // creates a new listing in DB
-app.post('/listings/', asyncWrap(async (req, res)=>{
-    let newProperty = req.body;
-    let temp = new listing({
-        title: newProperty.title,
-        description: newProperty.description,
-        image: newProperty.image,
-        price: newProperty.price,
-        location: newProperty.location,
-        country: newProperty.country,
-    });
-    await temp.save(); 
-    console.log(temp);
+app.post('/listings/',validateListing('new'), asyncWrap(async (req, res, next)=>{
+    let newProperty = new listing(req.body);
+
+    await newProperty.save(); 
     res.redirect('/listings');
 }));
 
 // deletes a specific lising
-app.delete('/listings/:id', asyncWrap(async (req, res)=>{
-    let {id} = req.params;
+app.delete('/listings/:id', asyncWrap(async (req, res, next)=>{
+    let id = req.params.id;
     const listed = await listing.findByIdAndDelete({_id: id});
     if(!listed) return next(new ExpressError(404, "Nothing to delete"));
     res.redirect('/listings');
 }));
 
 // edit handling route
-app.get("/listings/:id/edit", asyncWrap(async (req, res)=>{
-    let {id} = req.params;
+app.get("/listings/:id/edit", asyncWrap(async (req, res, next)=>{
+    let id = req.params.id;
     const listed = await listing.findById(id);
     if(!listed) return next(new ExpressError(404, "Listing doesn't exist"));
     res.render('edit', {listed});
 }));
 
 // edits a specific listing
-app.put("/listings/:id", async (req, res)=>{
-    let {id} = req.params;
-    await listing.findByIdAndUpdate(id, req.body, {returnDocument: 'after'});
+app.put("/listings/:id",validateListing('edit'), asyncWrap(async (req, res, next) => {
+    let { id } = req.params;
+    if (!id) return next(new ExpressError(404, "Listing doesn't exist"));
+    await listing.findByIdAndUpdate(id, req.body, { runValidators: true });
     res.redirect(`/listings/${id}`);
-});
+}));
 
 // show lisitng route
 app.get("/listings/:id", asyncWrap(async (req, res, next)=>{
@@ -125,14 +139,7 @@ app.get("/listings/:id", asyncWrap(async (req, res, next)=>{
 
 
 // Error handler
-app.use((err, req, res, next)=>{
-    let {status = 500, message = "Something went wrong"} = err;
-    console.error(message);
-    if(status === 404){
-        return res.status(404).render('./errors/PNF.ejs', {message});
-    }
-    res.status(status).send(message);
-});
+app.use(errorHandler);
 
 
 app.listen(8080, ()=>{console.log('Sever is running on port: 8080')});
