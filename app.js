@@ -19,6 +19,7 @@ const app = express();
 
 //models
 import {Listing as listing} from './DB_model/listing.js' ;
+import { reviews as review } from './DB_model/reviews.js';
 
 // Error handler and validators
 import ExpressError from './middleware/ExpressError.js'
@@ -67,6 +68,17 @@ const validateListing = (route) => {
         }
         next();
     }
+}
+
+// get reviews
+async function getReview(id){
+    const listed = await listing.findById(id).populate('reviews');
+    let lisingReviews = [];
+    for(let rev of listed.reviews){
+        lisingReviews.push(rev);
+    }
+    // console.log(lisingReviews);
+    return {listed, lisingReviews};
 }
 
 // new listing route
@@ -129,14 +141,25 @@ app.put("/listings/:id",validateListing('edit'), asyncWrap(async (req, res, next
 // show lisitng route
 app.get("/listings/:id", asyncWrap(async (req, res, next)=>{
     let {id} = req.params;
+    let {listed, listedReviews} = await getReview(id);
     if(!mongoose.Types.ObjectId.isValid(id))    return next( new ExpressError(404, "Invalid listing"));
     else{
-        const listed = await listing.findById(id);
         if(!listed) return next( new ExpressError(404, "Listing doesn't exist"));
-        else res.render('show', {listed});
+        else res.render('show', {listed, id, listedReviews});
     }
 }));
 
+app.post('/listings/:id/rating', asyncWrap(async (req, res, next)=>{
+    const newReview = new review(req.body);
+    const id = req.params.id;
+    // console.log(id);
+    let data = await listing.findById(id);
+    // console.log(data);
+    data.reviews.push(newReview);
+    await newReview.save();
+    await data.save();
+    res.redirect(`/listings/${id}`);
+}));
 
 // Error handler
 app.use(errorHandler);

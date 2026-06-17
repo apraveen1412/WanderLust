@@ -70,3 +70,28 @@ if(needsValidation){
       })
     })()
 }
+
+// review
+// rating
+const stars = document.querySelectorAll('.stars');
+const inputRating = document.querySelector('#rating');
+if(stars && inputRating){
+    stars.forEach((star)=>{
+        star.addEventListener('click', (e)=>{
+            e.preventDefault();
+            const rating = star.dataset.value;
+            inputRating.value = rating;
+
+            stars.forEach((s)=>{
+                if(s.dataset.value <= rating){
+                    s.classList.toggle('fa-regular');
+                    s.classList.toggle('fa-solid');
+                }
+                else{
+                    s.classList.remove('fa-solid');
+                    s.classList.add('fa-regular');
+                }
+            });
+        });
+    });
+}

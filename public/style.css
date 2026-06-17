@@ -235,9 +235,36 @@ footer{width: 100%;}
     color: black;
     font-size: 1.2rem;
 }
-.f-info-links a{font-size: 1rem;}
+.f-info-links a{font-size: 0.8rem;}
 .f-info-links a:hover{text-decoration: underline;}
 .f-info-socials a i:hover{transform: scale(1.02);}
+
+/* review rating */
+.reviewForm form{column-gap: 1rem;}
+.input-review{width: 100%;}
+.stars:hover{transform: scale(1.1);}
+.review-card{
+    margin: 0rem;
+    margin-top: 1rem;
+    column-gap: 0.5rem;
+}
+.propertyReviews{
+    margin: 0rem;
+    margin-top: 0.5rem;
+    margin-left: 0.2rem;
+    height: 10vh;
+    overflow-y: scroll;
+    border-radius: 0.5rem;
+}
+.propertyReviews::-webkit-scrollbar{border-radius: 0.5rem;}
+.propertyReviews::-webkit-scrollbar-track{
+    border-radius: 0.5rem;
+    background-color: #5555552e;
+}
+.propertyReviews::-webkit-scrollbar-thumb{
+    border-radius: 0.5rem;
+    background-color: #5555559f;
+}
 
 
 /* page not found */

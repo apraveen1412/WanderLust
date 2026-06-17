@@ -1,0 +1,43 @@
+<div class="reviewForm">
+    <form action="/listings/<%= id %>/rating" method="post" class="container-md d-flex">
+        <div class="reviewform-user">
+            <i class="fa-regular fa-user" style="color: rgb(117 117 117);"></i>
+        </div>
+        <div class="input-review d-flex flex-column">
+            <div class="rating">
+                <% for(let i=1; i<=5; i++){ %>
+                    <i class="fa-regular fa-star stars" style="color: rgb(255, 89, 119);" data-value='<%= i %>'></i>
+                <% } %>
+            </div>
+            <input type="hidden" name="rating" id="rating">
+            <div class="mb-3">
+                <label for="input-comment" class="form-label">Review</label>
+                <textarea name="comment" id="input-comment" class="input-comment form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<div class="propertyReviews">
+    <% if(listed.reviews && listed.reviews.length > 0){ %>
+        <% for(let rev of listed.reviews){ %>
+            <div class="review-card d-flex">
+                <div class="review-user review-card-item1">
+                    <i class="fa-regular fa-user" style="color: rgb(117 117 117);"></i>
+                </div>
+                <div class="review-card-item2 d-flex flex-column">
+                    <div class="reviewStars d-flex">
+                        <% for(let i = 0; i<rev.rating; i++) {%>
+                            <i class="fa-solid fa-star" style="color: rgb(255, 89, 119);"></i>
+                        <% } %>
+                    </div>
+                    <p><%= rev.comment %></p>
+                </div>
+
+            </div>
+        <% } %>
+    <% } else { %>
+        <p class="text-muted">No reviews yet. Be the first!</p>
+    <% } %>
+</div>

@@ -1,6 +1,18 @@
 <%- layout('layouts/boilerplate') %>
 
 <div class="card show-listing">
+    <div class="show-img-container">
+        <a href="/listings/<%- listed._id %>/edit" id="showEdit">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </a>
+        <img src='<%= listed.image.includes("unsplash.com") 
+                ? listed.image.split("?")[0] + "?w=400&q=60&auto=format&fit=crop" 
+                : listed.image %>' 
+                class="card-img-top listed-item-img" 
+                alt="<%= listed.title %>"
+                loading="lazy">
+    </div>
+
     <div class="show-list-info">
         <div class="card-body">
             <div class="listed-item-title">
@@ -29,15 +41,7 @@
         </div>
     </div>
 
-    <div class="show-img-container">
-        <a href="/listings/<%- listed._id %>/edit" id="showEdit">
-            <i class="fa-solid fa-pen-to-square"></i>
-        </a>
-        <img src='<%= listed.image.includes("unsplash.com") 
-                ? listed.image.split("?")[0] + "?w=400&q=60&auto=format&fit=crop" 
-                : listed.image %>' 
-                class="card-img-top listed-item-img" 
-                alt="<%= listed.title %>"
-                loading="lazy">
-    </div>
+</div>
+<div class="container-md">
+    <%- include('./includes/review.ejs') %>
 </div>
