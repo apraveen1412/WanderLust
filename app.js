@@ -145,7 +145,7 @@ app.get("/listings/:id", asyncWrap(async (req, res, next)=>{
     if(!mongoose.Types.ObjectId.isValid(id))    return next( new ExpressError(404, "Invalid listing"));
     else{
         if(!listed) return next( new ExpressError(404, "Listing doesn't exist"));
-        else res.render('show', {listed, id, listedReviews});
+        else res.render('show', {listed, listedReviews});
     }
 }));
 

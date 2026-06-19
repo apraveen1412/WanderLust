@@ -1,5 +1,6 @@
+<h5>Leave a review</h5>
 <div class="reviewForm">
-    <form action="/listings/<%= id %>/rating" method="post" class="container-md d-flex">
+    <form action="/listings/<%= listed._id %>/rating" method="post" class="container-md d-flex">
         <div class="reviewform-user">
             <i class="fa-regular fa-user" style="color: rgb(117 117 117);"></i>
         </div>
@@ -11,7 +12,7 @@
             </div>
             <input type="hidden" name="rating" id="rating">
             <div class="mb-3">
-                <label for="input-comment" class="form-label">Review</label>
+                <label for="input-comment" class="form-label">Comments</label>
                 <textarea name="comment" id="input-comment" class="input-comment form-control"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -19,7 +20,7 @@
     </form>
 </div>
 
-<div class="propertyReviews">
+<div class="propertyReviews d-flex flex-column">
     <% if(listed.reviews && listed.reviews.length > 0){ %>
         <% for(let rev of listed.reviews){ %>
             <div class="review-card d-flex">
