@@ -1,6 +1,6 @@
 <h5>Leave a review</h5>
 <div class="reviewForm">
-    <form action="/listings/<%= listed._id %>/rating" method="post" class="container-md d-flex">
+    <form action="/listings/<%= listed._id %>/reviews" method="post" class="container-md d-flex needs-validation" novalidate>
         <div class="reviewform-user">
             <i class="fa-regular fa-user" style="color: rgb(117 117 117);"></i>
         </div>
@@ -10,10 +10,11 @@
                     <i class="fa-regular fa-star stars" style="color: rgb(255, 89, 119);" data-value='<%= i %>'></i>
                 <% } %>
             </div>
-            <input type="hidden" name="rating" id="rating">
+            <input type="hidden" name="rating" id="rating" >
             <div class="mb-3">
                 <label for="input-comment" class="form-label">Comments</label>
-                <textarea name="comment" id="input-comment" class="input-comment form-control"></textarea>
+                <textarea name="comment" id="input-comment" class="input-comment form-control" required></textarea>
+                <div class="invalid-feedback">Please add some comment for review.</div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>

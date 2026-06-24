@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const listingSchema = Joi.object({
+export const validateListing = Joi.object({
     title: Joi.string().pattern(/^[^0-9].*/).min(5).required().messages({
         'string.pattern.base': "Title should not start with a character",
         'string.empty': 'Title cannot be empty',
@@ -11,4 +11,8 @@ const listingSchema = Joi.object({
     location: Joi.string().required(),
     country: Joi.string().pattern(/^[A-Za-z]/).required(),
 });
-export default listingSchema;
+
+export const validateReview=Joi.object({
+    rating: Joi.number().min(1).max(5).required(),
+    comment: Joi.string().required(),
+});

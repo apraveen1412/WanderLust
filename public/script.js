@@ -75,7 +75,8 @@ if(needsValidation){
 // rating
 const stars = document.querySelectorAll('.stars');
 const inputRating = document.querySelector('#rating');
-if(stars && inputRating){
+
+if(stars && inputRating){ // review stars 
     stars.forEach((star)=>{
         star.addEventListener('click', (e)=>{
             e.preventDefault();

@@ -4,19 +4,27 @@ const errorHandler = (err, req, res, next) => {
 
     if (err instanceof Joi.ValidationError) {
         const msg = err.details.map(el => el.message).join(", ");
-        if (err.view) return res.status(400).render(err.view, { msg, listed: err.listed });
+        if (err.view) {
+            const listed = err.listed || null;
+            const listedReviews = listed?.reviews || [];  //  extract reviews
+            return res.status(400).render(err.view, { msg, listed, listedReviews });
+        }
         return res.status(400).send(msg);
     }
 
-    if (err.name === "ValidationError") {  // Mongoose
+    if (err.name === "ValidationError") {
         const msg = Object.values(err.errors).map(el => el.message).join(", ");
-        if (err.view) return res.status(400).render(err.view, { msg, listed: err.listed });
+        if (err.view) {
+            const listed = err.listed || null;
+            const listedReviews = listed?.reviews || [];  // extract reviews
+            return res.status(400).render(err.view, { msg, listed, listedReviews });
+        }
         return res.status(400).send(msg);
     }
 
     const { status = 500, message = "Something went wrong" } = err;
     if (status === 404) return res.status(404).render('./errors/PNF.ejs', { message });
-    res.status(status).send(message);
+    res.status(status).render('errors/PNF.ejs', { message });
 };
 
 export default errorHandler;
