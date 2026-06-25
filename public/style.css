@@ -43,17 +43,17 @@ body{
 }
 .wishlistBtn{
     position: absolute;
-    top: 0.2rem;
-    right: 0.3rem;
+    top: 0.25rem;
+    right: 0.35rem;
     width: 2.5rem;
     height: 2.5rem;
     border: none;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.247);
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #3c3c3c;
+    color: #171717;
     cursor: pointer;
     transition: 0.2s ease;
 }
@@ -262,6 +262,7 @@ footer{width: 100%;}
     transition: 0.1s ease-out;
     width: 95%;
     padding-top: 0.2rem;
+    display: flex;
 }
 .review-card:hover{
     transform: scale(1.02);
@@ -273,6 +274,7 @@ footer{width: 100%;}
     margin-top: 0.5rem;
     height: 15vh;
     overflow-y: scroll;
+    overflow-x: hidden;
     border-radius: 0.5rem;
     background-color: whitesmoke;
     align-items: center;
@@ -286,7 +288,34 @@ footer{width: 100%;}
     border-radius: 0.5rem;
     background-color: #5555559f;
 }
-
+.user-dets{
+    margin: 0rem;
+    margin-left: 0.3rem;
+}
+.user-dets h6{margin: 0rem;}
+.user-dets p{
+    margin: 0rem;
+    font-size: 0.7rem;
+}
+.review-card-item2{
+    margin: 0rem;
+    margin-left: 0.8rem;
+    margin-top: 0.2rem;
+}
+.rev-comment{
+    padding: 0rem;
+    padding-bottom: 0.5rem;
+}
+.rev-posted{
+    font-size: 0.9rem;
+    color: #00000084;
+    margin: 0rem;
+    margin-left: 0.35rem;
+}
+.rev-del{
+    margin-top: 0.2rem;
+    margin-left: 4rem;
+}
 
 /* page not found */
 #pnf-btn{

@@ -21,24 +21,46 @@
     </form>
 </div>
 
-<div class="propertyReviews d-flex flex-column">
+<div class="propertyReviews">
     <% if(listed.reviews && listed.reviews.length > 0){ %>
-        <% for(let rev of listed.reviews){ %>
-            <div class="review-card d-flex">
-                <div class="review-user review-card-item1">
-                    <i class="fa-regular fa-user" style="color: rgb(117 117 117);"></i>
-                </div>
-                <div class="review-card-item2 d-flex flex-column">
-                    <div class="reviewStars d-flex">
-                        <% for(let i = 0; i<rev.rating; i++) {%>
-                            <i class="fa-solid fa-star" style="color: rgb(255, 89, 119);"></i>
-                        <% } %>
-                    </div>
-                    <p><%= rev.comment %></p>
-                </div>
+        <div class="row">
+            <% for(let rev of listed.reviews){ %>
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <div class="review-card card">
+                        <div class="review-card-item1 d-flex justify-content-around">
+                            <div class="user-rev d-flex">
+                                <div class="review-user">
+                                    <i class="fa-regular fa-user" style="color: rgb(117 117 117);"></i>
+                                </div>
+                                <div class="user-dets d-flex flex-column">
+                                    <h6>username</h6>
+                                    <p>n years on WanderLust</p>
+                                </div>
+                            </div>
+                            
+                            <form action="/listings/<%- listed._id %>/reviews/<%- rev._id %>?_method=DELETE" method="post" class="rev-del">
+                                <button class="btn btn-sm btn-dark">Delete</button>
+                            </form>
+                        </div>
 
-            </div>
-        <% } %>
+                        <div class="review-card-item2 d-flex flex-column">
+                            <div class="star-rating d-flex">
+                                <div class="reviewStars d-flex align-items-center">
+                                    <% for(let i = 0; i<rev.rating; i++) {%>
+                                        <i class="fa-solid fa-star" style="color: rgb(255, 89, 119);"></i>
+                                    <% } %>
+                                </div>
+                                <p class="rev-posted">.  <%= rev.createdAt.toLocaleString('en-IN',{
+                                    month:'long',
+                                    year: 'numeric'}) %>
+                                </p>
+                            </div>
+                            <p class="rev-comment"><%= rev.comment %></p>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
     <% } else { %>
         <p class="text-muted">No reviews yet. Be the first!</p>
     <% } %>
