@@ -18,7 +18,7 @@ import {valListing, valReview} from '../utils/serversideValidation.js'
 import getReview from '../utils/getReview.js'
 
 
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 
 
 async function main(){
@@ -39,6 +39,7 @@ router.post('/listings/:id/reviews', valReview('show'), asyncWrap(async (req, re
     data.reviews.push(newReview);
     await newReview.save();
     await data.save();
+    req.flash('success', 'Review posted successfully');
     res.redirect(`/listings/${id}`);
 }));
 
@@ -47,6 +48,7 @@ router.delete('/listings/:id/reviews/:reviewId', asyncWrap(async (req, res, next
     let {id, reviewId} = req.params;
     await listing.findByIdAndUpdate(id, {$pull: {reviews: reviewId}});
     await review.findByIdAndDelete(reviewId);
+    req.flash('success', 'Review deleted successfully');
     res.redirect(`/listings/${id}`);
 }));
 

@@ -65,7 +65,7 @@ router.get("/search", asyncWrap(async (req, res, next)=>{
 // creates a new listing in DB
 router.post('/',valListing('new'), asyncWrap(async (req, res, next)=>{
     let newProperty = new listing(req.body);
-
+    req.flash('success', 'Successfully added new listing');
     await newProperty.save(); 
     res.redirect('/listings');
 }));
@@ -75,6 +75,7 @@ router.delete('/:id', asyncWrap(async (req, res, next)=>{
     let id = req.params.id;
     const listed = await listing.findByIdAndDelete({_id: id});
     if(!listed) return next(new ExpressError(404, "Nothing to delete"));
+    req.flash('success', 'Successfully deleted the listing');
     res.redirect('/listings');
 }));
 
@@ -91,6 +92,7 @@ router.put("/:id",valListing('edit'), asyncWrap(async (req, res, next) => {
     let { id } = req.params;
     if (!id) return next(new ExpressError(404, "Listing doesn't exist"));
     await listing.findByIdAndUpdate(id, req.body, { runValidators: true });
+    req.flash('success', 'Successfully updated the listing');
     res.redirect(`/listings/${id}`);
 }));
 

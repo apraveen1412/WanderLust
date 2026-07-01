@@ -13,7 +13,11 @@ import express from 'express';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
 import path from 'path';
+import { fileURLToPath } from "url";
 import ejsMate from 'ejs-mate';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import flash from 'connect-flash';
 
 const app = express();
 
@@ -36,16 +40,37 @@ import asyncWrap from './utils/aysncWrap.js'
 import {valListing, valReview} from './utils/serversideValidation.js'
 
 
-app.set('views', path.join('views'));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const sessionOptions = {
+    secret: 'topSecretKey',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now()+ 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true,
+    },
+};
+
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(path.join('public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
+app.use(cookieParser());
+app.use(session(sessionOptions));
+app.use(flash());
+
 app.engine('ejs', ejsMate);
 async function main(){
     await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
 }
+app.use((req, res, next)=>{
+    res.locals.success = req.flash('success'); // new listing flash message
+    next();
+})
 main()
     .then(()=>console.log('DB connection successful'))
     .catch((err)=>console.log(err));
