@@ -1,25 +1,89 @@
 <nav class="navbar navbar-expand-xl bg-light sticky-top border-bottom">
-  <div class="container-md ">
-    <a class="navbar-brand" href="/listings"><i class="fa-solid fa-compass"></i>WanderLust</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/listings">All listings</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/listings/new">Add new listing</a>
-        </li>
+  <div class="container-md d-flex align-items-center justify-content-between">
+
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-solid fa-compass"></i>WanderLust
+    </a>
+
+    <div class="nav-mobile-controls d-flex d-xl-none align-items-center">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <% if (profilePic) { %>
+        <div class="nav-item dropdown profile-dropdown">
+          <a class="nav-link profile-pic" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="<%= profilePic %>" alt="profile-pic" class="profile-img">
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <% if(!currentUser) {%>
+              <li><a class="dropdown-item" href="/auth/signup">Sign up</a></li>
+              <li><a class="dropdown-item" href="/auth/login">Log in</a></li>
+            <% } else{%>
+              <li><a class="dropdown-item" href="/auth/logout" style="color: #fe424d;"><b>Log out</b></a></li>
+            <% } %>
+          </ul>
+        </div>
+      <% } else { %>
+        <div class="nav-item dropdown profile-dropdown">
+          <a class="nav-link profile-pic" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-circle-user" style="color: rgb(151, 151, 151);"></i>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <% if(!currentUser) {%>
+              <li><a class="dropdown-item" href="/auth/signup">Sign up</a></li>
+              <li><a class="dropdown-item" href="/auth/login">Log in</a></li>
+            <% } else{%>
+              <li><a class="dropdown-item" href="/auth/logout" style="color: #fe424d;"><b>Log out</b></a></li>
+            <% } %>
+          </ul>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="collapse navbar-collapse align-items-center flex-grow-1" id="navbarSupportedContent">
+
+      <ul class="navbar-nav me-auto mb-2 mb-xl-0 align-items-xl-center">
+        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/listings">All listings</a></li>
+        <li class="nav-item"><a class="nav-link" href="/listings/new">Add new listing</a></li>
       </ul>
-      <form class="d-flex" role="search" method="get" action="/listings/search">
-        <input class="form-control me-2" type="search" placeholder="Enter name of a Property, Location or Country" aria-label="Search" name="search"/>
+
+      <form class="d-flex align-items-center mx-xl-3" role="search" method="get" action="/listings/search">
+        <input class="form-control me-2" type="search" placeholder="Enter name of a Property, Location or Country" aria-label="Search" name="search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
+
+      <% if (profilePic) { %>
+        <div class="nav-item dropdown profile-dropdown d-none d-xl-flex align-items-center">
+          <a class="nav-link profile-pic" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="<%= profilePic %>" alt="profile-pic" class="profile-img"></a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <% if(!currentUser) {%>
+              <li><a class="dropdown-item" href="/auth/signup">Sign up</a></li>
+              <li><a class="dropdown-item" href="/auth/login">Log in</a></li>
+            <% } else{%>
+              <li><a class="dropdown-item" href="/auth/logout" style="color: #fe424d;"><b>Log out</b></a></li>
+            <% } %>
+          </ul>
+        </div>
+      <% } else { %>
+        <div class="nav-item dropdown profile-dropdown d-none d-xl-flex align-items-center">
+          <a class="nav-link profile-pic" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-circle-user" style="color: rgb(151, 151, 151);"></i></a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <% if(!currentUser) {%>
+              <li><a class="dropdown-item" href="/auth/signup">Sign up</a></li>
+              <li><a class="dropdown-item" href="/auth/login">Log in</a></li>
+            <% } else{%>
+              <li><a class="dropdown-item" href="/auth/logout" style="color: #fe424d;"><b>Log out</b></a></li>
+            <% } %>
+          </ul>
+        </div>
+      <% } %>
+
     </div>
   </div>
 </nav>

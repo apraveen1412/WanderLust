@@ -3,14 +3,19 @@ import mongoose from 'mongoose';
 import methodOverride from 'method-override';
 import path from 'path';
 import ejsMate from 'ejs-mate';
+import passport from 'passport';
 
 //models
-import {Listing as listing} from '../DB_model/listing.js' ;
-import { reviews as review } from '../DB_model/reviews.js';
+import {Listing as listing} from '../models/listing.js' ;
+import { reviews as review } from '../models/reviews.js';
+
 
 // Error handler and validators
 import ExpressError from '../middleware/ExpressError.js'
 import errorHandler from '../middleware/errorHandler.js';
+
+//middleware
+import { isLoggedIn, isCreatedUser } from '../middleware/athenticate.js';
 
 // utils
 import asyncWrap from '../utils/aysncWrap.js'
@@ -38,7 +43,7 @@ router.get("/", async (req, res)=>{
 });
 
 // new listing route
-router.get("/new", asyncWrap(async (req, res, next)=>{
+router.get("/new", isLoggedIn, asyncWrap(async (req, res, next)=>{
     res.render('new', {});
 }));
 
@@ -63,15 +68,16 @@ router.get("/search", asyncWrap(async (req, res, next)=>{
 }));
 
 // creates a new listing in DB
-router.post('/',valListing('new'), asyncWrap(async (req, res, next)=>{
+router.post('/', isLoggedIn, valListing('new'), asyncWrap(async (req, res, next)=>{
     let newProperty = new listing(req.body);
+    newProperty.owner = req.user._id;
     req.flash('success', 'Successfully added new listing');
     await newProperty.save(); 
     res.redirect('/listings');
 }));
 
 // deletes a specific lising
-router.delete('/:id', asyncWrap(async (req, res, next)=>{
+router.delete('/:id', isLoggedIn, isCreatedUser, asyncWrap(async (req, res, next)=>{
     let id = req.params.id;
     const listed = await listing.findByIdAndDelete({_id: id});
     if(!listed) return next(new ExpressError(404, "Nothing to delete"));
@@ -80,7 +86,7 @@ router.delete('/:id', asyncWrap(async (req, res, next)=>{
 }));
 
 // edit handling route
-router.get("/:id/edit", asyncWrap(async (req, res, next)=>{
+router.get("/:id/edit", isLoggedIn, isCreatedUser,asyncWrap(async (req, res, next)=>{
     let id = req.params.id;
     const listed = await listing.findById(id);
     if(!listed) return next(new ExpressError(404, "Listing doesn't exist"));
@@ -88,7 +94,7 @@ router.get("/:id/edit", asyncWrap(async (req, res, next)=>{
 }));
 
 // edits a specific listing
-router.put("/:id",valListing('edit'), asyncWrap(async (req, res, next) => {
+router.put("/:id", isLoggedIn, isCreatedUser, valListing('edit'), asyncWrap(async (req, res, next) => {
     let { id } = req.params;
     if (!id) return next(new ExpressError(404, "Listing doesn't exist"));
     await listing.findByIdAndUpdate(id, req.body, { runValidators: true });

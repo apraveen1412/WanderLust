@@ -22,9 +22,25 @@ const errorHandler = (err, req, res, next) => {
         return res.status(400).send(msg);
     }
 
+    if (err.name === "UserExistsError") {
+        return res.status(400).render("signup", {
+            formData: {
+                name: req.body.name,
+                email: req.body.email,
+                username: req.body.username,
+            },
+            error: [err.message]
+        });
+    }
+    console.error(err);
     const { status = 500, message = "Something went wrong" } = err;
-    if (status === 404) return res.status(404).render('./errors/PNF.ejs', { message });
-    res.status(status).render('errors/PNF.ejs', { message });
+    if (status === 404) {
+        req.flash("error", message);
+        return res.redirect("/listings");
+    }
+
+req.flash("error", message);
+return res.redirect("/listings");
 };
 
 export default errorHandler;

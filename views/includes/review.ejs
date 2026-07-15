@@ -1,24 +1,26 @@
 <h5>Leave a review</h5>
 <div class="reviewForm">
-    <form action="/listings/<%= listed._id %>/reviews" method="post" class="container-md d-flex needs-validation" novalidate>
-        <div class="reviewform-user">
-            <i class="fa-regular fa-user" style="color: rgb(117 117 117);"></i>
-        </div>
-        <div class="input-review d-flex flex-column">
-            <div class="rating">
-                <% for(let i=1; i<=5; i++){ %>
-                    <i class="fa-regular fa-star stars" style="color: rgb(255, 89, 119);" data-value='<%= i %>'></i>
-                <% } %>
+    <% if(currentUser) {%>
+        <form action="/listings/<%= listed._id %>/reviews" method="post" class="container-md d-flex needs-validation" novalidate>
+            <div class="reviewform-user">
+                <i class="fa-regular fa-user" style="color: rgb(117 117 117);"></i>
             </div>
-            <input type="hidden" name="rating" id="rating" >
-            <div class="mb-3">
-                <label for="input-comment" class="form-label">Comments</label>
-                <textarea name="comment" id="input-comment" class="input-comment form-control" required></textarea>
-                <div class="invalid-feedback">Please add some comment for review.</div>
+            <div class="input-review d-flex flex-column">
+                <div class="rating">
+                    <% for(let i=1; i<=5; i++){ %>
+                        <i class="fa-regular fa-star stars" style="color: rgb(255, 89, 119);" data-value='<%= i %>'></i>
+                    <% } %>
+                </div>
+                <input type="hidden" name="rating" id="rating" >
+                <div class="mb-3">
+                    <label for="input-comment" class="form-label">Comments</label>
+                    <textarea name="comment" id="input-comment" class="input-comment form-control" required></textarea>
+                    <div class="invalid-feedback">Please add some comment for review.</div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
+        </form>
+    <% } %>
 </div>
 
 <div class="propertyReviews">
@@ -33,14 +35,16 @@
                                     <i class="fa-regular fa-user" style="color: rgb(117 117 117);"></i>
                                 </div>
                                 <div class="user-dets d-flex flex-column">
-                                    <h6>username</h6>
-                                    <p>n years on WanderLust</p>
+                                    <h6>@<%= rev.author.username %></h6>
+                                    <p>since <%= rev.author.createdAt.toLocaleString('en-IN',{year: 'numeric'}) %> on WanderLust</p>
                                 </div>
                             </div>
                             
-                            <form action="/listings/<%- listed._id %>/reviews/<%- rev._id %>?_method=DELETE" method="post" class="rev-del">
-                                <button class="btn btn-sm btn-dark">Delete</button>
-                            </form>
+                            <% if(currentUser && currentUser._id.equals(rev.author._id)) {%>
+                                <form action="/listings/<%- listed._id %>/reviews/<%- rev._id %>?_method=DELETE" method="post" class="rev-del">
+                                    <button class="btn btn-sm btn-dark">Delete</button>
+                                </form>
+                            <% } %>
                         </div>
 
                         <div class="review-card-item2 d-flex flex-column">

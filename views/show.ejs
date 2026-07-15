@@ -2,9 +2,11 @@
 
 <div class="card show-listing">
     <div class="show-img-container">
-        <a href="/listings/<%- listed._id %>/edit" id="showEdit">
-            <i class="fa-solid fa-pen-to-square"></i>
-        </a>
+        <% if(currentUser && currentUser._id.equals(listed.owner._id)) {%>
+            <a href="/listings/<%- listed._id %>/edit" id="showEdit">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+        <% } %>
         <img src='<%= listed.image.includes("unsplash.com") 
                 ? listed.image.split("?")[0] + "?w=400&q=60&auto=format&fit=crop" 
                 : listed.image %>' 
@@ -15,6 +17,7 @@
 
     <div class="show-list-info">
         <div class="card-body">
+            <p class="show-username">Owned by <i><%- listed.owner.username %></i></p>
             <div class="listed-item-title">
                 <h2 class="card-title"><%- listed.title %></h2>
                 <div class="listing-options">
@@ -23,10 +26,12 @@
                         <i class="fa-regular fa-heart showWishlist">
                         </i>
                     </a>
-                    <form action="/listings/<%- listed._id %>?_method=DELETE" method="post">
-                        <input type="hidden" name="delete" value="<%- listed._id %>">
-                        <button type="submit" id="showDel"><i class="fa-solid fa-trash-can"></i></button>
-                    </form>
+                    <% if(currentUser && currentUser._id.equals(listed.owner._id)) {%>
+                        <form action="/listings/<%- listed._id %>?_method=DELETE" method="post">
+                            <input type="hidden" name="delete" value="<%- listed._id %>">
+                            <button type="submit" id="showDel"><i class="fa-solid fa-trash-can"></i></button>
+                        </form>
+                    <% } %>
                 </div>
             </div>
             <h5>Details</h5>

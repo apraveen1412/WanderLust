@@ -1,13 +1,13 @@
-// import { required } from "joi";
 import mongoose from "mongoose";
 
-// Models
-// import user from './user'; 
-
 const reviewSchema = mongoose.Schema({
-    // user: {},
+    author: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'user',
+        required: true,
+    },
     comment: {
-        type: String
+        type: String,
     },
     rating: {
         type: Number,

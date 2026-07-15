@@ -1,3 +1,4 @@
+import { Listing as listing } from '../models/listing.js';
 // error handlers & validators
 import {validateListing, validateReview} from '../schema.js'
 
