@@ -123,8 +123,6 @@ passport.deserializeUser(async (id, done) => {
 });
 
 
-
-
 app.engine('ejs', ejsMate);
 async function main(){
     await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
@@ -152,4 +150,4 @@ app.use('/listings/:id/reviews', reviewRouter);
 app.use(errorHandler);
 
 
-app.listen(8080, ()=>{console.log('Sever is running on port: 8080')});
+app.listen(8080, ()=>{console.log('Server is running on port: 8080')});

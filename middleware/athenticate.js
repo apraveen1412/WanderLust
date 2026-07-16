@@ -6,7 +6,7 @@ import { reviews } from '../models/reviews.js';
 
 export const isLoggedIn = (req, res, next) => {
     const id = req.params.id;
-
+    // const di = req.body;
     if (!req.isAuthenticated()) {
         // redirect URL
         req.session.redirectURL = req.originalUrl;
@@ -15,7 +15,7 @@ export const isLoggedIn = (req, res, next) => {
         if ((req.path === '/new' && req.method === 'GET') || (req.path === '/' && req.method === 'POST')) {
             req.flash('error', 'You have to login or signup to create a new listing');
         }
-
+        
         // Delete listing
         else if (req.path === `/${id}` && req.method === 'DELETE') {
             req.flash('error', 'You have to login or signup to delete the listing');
@@ -60,9 +60,9 @@ export const isCreatedUser = async (req, res, next)=>{
 }
 
 export const isReviewAuthor = async (req, res, next)=>{
-    const id = req.params.id;
+    const {id, reviewId} = req.params;
     try{
-        const review = await reviews.findById(id);
+        const review = await reviews.findById(reviewId);
         if(!review){
             req.flash('error', "The review you requested doesn't exist");
             return res.redirect(`/listings/${id}`);

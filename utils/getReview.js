@@ -15,7 +15,7 @@ async function getReview(id) {
 
     if (!listed) return { listed: null, listedReviews: [] };
 
-    console.log(listed)
+    // console.log(listed);
     return { listed, listedReviews: listed.reviews };
 }
 
