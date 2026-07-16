@@ -9,74 +9,35 @@ import asyncWrap from '../utils/aysncWrap.js'
 
 // middlewares
 import { saveRedirectURL } from '../middleware/athenticate.js';
+import { getLogin, getLogout, getSignup, googleAuthenticate, googleCallback, postLogin, postSignup } from '../controllers/users.js';
 
 const router = express.Router();
 
 
 
 // SIGN UP
-router.get('/signup', asyncWrap(async (req, res, next)=>{
-    res.render('signup',{formData: null});
-}));
+router.get('/signup', asyncWrap(getSignup));
 
-router.post('/signup', asyncWrap(async (req, res, next)=>{
-    let addUser = new user({
-        name: req.body.name,
-        email: req.body.email,
-        username: req.body.username,
-    });
-    let newUser = await user.register(addUser, req.body.password);
-    if(!newUser.username === 'undefined')    return res.redirect('/auth/signup'); 
-    req.login(newUser, (err)=>{
-        if(err){
-            return next(err);
-        }
-        req.flash('success', 'Welcome to WanderLust!');
-        return res.redirect('/listings');
-    });
-}));
+router.post('/signup', asyncWrap(postSignup));
 
+// GOOGLE
 router.get("/google", passport.authenticate("google", {
         scope: ["profile", "email"],
-    }), 
-    (req, res) => {
-        req.flash("success", "Welcome to WanderLust!");
-        res.redirect("/listings");
-    }
-);
+    }), googleAuthenticate);
 router.get("/google/callback",
-
+    saveRedirectURL,
     passport.authenticate("google", {
         failureRedirect: "/auth/signup",
-    }),
-
-    (req, res) => {
-        req.flash("success", "Welcome to WanderLust!");
-        res.redirect("/listings");
-    }
-);
+        keepSessionInfo: true,
+    }), googleCallback);
 
 
 // LOGIN
-router.get('/login', asyncWrap(async (req, res, next)=>{
-    res.render('signin',{formData: null});
-}));
+router.get('/login', asyncWrap(getLogin));
 
-router.post('/login', saveRedirectURL, passport.authenticate('local',{failureRedirect: '/auth/login', failureFlash: true}), asyncWrap(async (req, res, next)=>{
-    req.flash('success', 'Welcome back!');
-    let redirectURL = res.locals.redirectUrl || '/listings';
-    res.redirect(redirectURL);
-}));
+router.post('/login', saveRedirectURL, passport.authenticate('local',{failureRedirect: '/auth/login', failureFlash: true, keepSessionInfo: true}), asyncWrap(postLogin));
 
 
-router.get('/logout', (req, res, next)=>{
-    req.logout((err)=>{
-        if(err){
-            return next(err);
-        }
-        req.flash('success', 'You are logged out');
-        res.redirect('/listings');
-    });
-})
+router.get('/logout', getLogout);
 
 export default router;
