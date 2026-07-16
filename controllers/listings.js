@@ -41,6 +41,9 @@ export const searchListing = async (req, res, next)=>{
 export const addListing = async (req, res, next)=>{
     let newProperty = new listing(req.body);
     newProperty.owner = req.user._id;
+    newProperty.image.url = req.file.path;
+    newProperty.image.filename = req.file.filename; 
+    console.log(newProperty);
     req.flash('success', 'Successfully added new listing');
     await newProperty.save(); 
     res.redirect('/listings');

@@ -9,6 +9,7 @@
 
 
 // ES6
+import dotenv from "dotenv";
 import express from 'express';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
@@ -21,7 +22,7 @@ import flash from 'connect-flash';
 import passport from 'passport';
 import localStrategy from 'passport-local';
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import dotenv from "dotenv";
+
 
 
 const app = express();

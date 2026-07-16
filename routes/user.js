@@ -16,9 +16,9 @@ const router = express.Router();
 
 
 // SIGN UP
-router.get('/signup', asyncWrap(getSignup));
-
-router.post('/signup', asyncWrap(postSignup));
+router.route('/signup')
+    .get(asyncWrap(getSignup))
+    .post(asyncWrap(postSignup));
 
 // GOOGLE
 router.get("/google", passport.authenticate("google", {
@@ -33,9 +33,9 @@ router.get("/google/callback",
 
 
 // LOGIN
-router.get('/login', asyncWrap(getLogin));
-
-router.post('/login', saveRedirectURL, passport.authenticate('local',{failureRedirect: '/auth/login', failureFlash: true, keepSessionInfo: true}), asyncWrap(postLogin));
+router.route('/login')
+    .get(asyncWrap(getLogin))
+    .post(saveRedirectURL, passport.authenticate('local',{failureRedirect: '/auth/login', failureFlash: true, keepSessionInfo: true}), asyncWrap(postLogin));
 
 
 router.get('/logout', getLogout);

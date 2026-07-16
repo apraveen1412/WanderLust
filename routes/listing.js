@@ -1,9 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import methodOverride from 'method-override';
-import path from 'path';
-import ejsMate from 'ejs-mate';
-import passport from 'passport';
+import multer from 'multer';
 
 // Error handler and validators
 import ExpressError from '../middleware/ExpressError.js'
@@ -19,18 +17,15 @@ import {valListing, valReview} from '../utils/serversideValidation.js'
 // Controllers
 import { index, newListing, addListing, putEditListing, getEditListing, searchListing, showListing, deleteListing } from '../controllers/listings.js';
 
+// cloud
+import { cloudinary, storage } from '../cloudConfig.js';
+
 const router = express.Router();
+const upload = multer({storage});
 
-async function main(){
-    await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
-}
-main()
-    .then(()=>console.log('DB connection successful'))
-    .catch((err)=>console.log(err));
-
-
-// home
-router.get("/", asyncWrap(index));
+router.route('/')
+    .get(asyncWrap(index)) // home
+    .post( isLoggedIn, valListing('new'), upload.single('image'), asyncWrap(addListing)); // creates a new listing in DB
 
 // new listing route
 router.get("/new", saveRedirectURL, isLoggedIn, asyncWrap(newListing));
@@ -38,19 +33,12 @@ router.get("/new", saveRedirectURL, isLoggedIn, asyncWrap(newListing));
 // search handling route
 router.get("/search", asyncWrap(searchListing));
 
-// creates a new listing in DB
-router.post('/', isLoggedIn, valListing('new'), asyncWrap(addListing));
-
-// deletes a specific lising
-router.delete('/:id', isLoggedIn, isCreatedUser, asyncWrap(deleteListing));
-
 // edit handling route
 router.get("/:id/edit", saveRedirectURL, isLoggedIn, isCreatedUser,asyncWrap(getEditListing));
 
-// edits a specific listing
-router.put("/:id", isLoggedIn, isCreatedUser, valListing('edit'), asyncWrap(putEditListing));
-
-// show lisitng route
-router.get("/:id",saveRedirectURL, asyncWrap(showListing));
+router.route('/:id')
+    .get(saveRedirectURL, asyncWrap(showListing)) // show lisitng route
+    .delete(isLoggedIn, isCreatedUser, asyncWrap(deleteListing)) // deletes a specific lising
+    .put(isLoggedIn, isCreatedUser, valListing('edit'), asyncWrap(putEditListing)); // edits a specific listing
 
 export default router;

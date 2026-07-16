@@ -8,7 +8,7 @@
     </div>
 
 <% } %>
-<form action="/listings" method="post" class="newListing d-flex flex-column needs-validation" novalidate>
+<form action="/listings" method="post" enctype="multipart/form-data" class="newListing d-flex flex-column needs-validation" novalidate>
     <div class="mb-3">
         <label for="newTitle" class="form-label ">Property name</label>
         <input type="text" class="form-control" id="newTitle" placeholder="Property  name" name="title" required>
@@ -19,8 +19,8 @@
         <textarea name="description" id="newDescription" class="form-control" placeholder="Describe the property."></textarea>
     </div>
     <div class="mb-3">
-        <label for="newImage" class="form-label">Image url</label>
-        <input type="url" class="form-control" id="newImage" placeholder="Image URL" name="image">
+        <label for="newImage" class="form-label">Upload Image</label>
+        <input type="file" class="form-control" id="newImage" name="image">
     </div>
     <div class="mb-3">
         <label for="newPrice" class="form-label" >Price</label>
