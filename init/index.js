@@ -12,7 +12,7 @@ main()
 
 async function initDB() {
     await listing.deleteMany({});
-    await reviews.deleteMany({});
+    // await reviews.deleteMany({});
     // await user.deleteMany({});
 
     const updatedData = initData.map((obj)=>({...obj, owner: '6a57e26459f16698b2f2d766'}));

@@ -39,6 +39,6 @@ router.get("/:id/edit", saveRedirectURL, isLoggedIn, isCreatedUser,asyncWrap(get
 router.route('/:id')
     .get(saveRedirectURL, asyncWrap(showListing)) // show lisitng route
     .delete(isLoggedIn, isCreatedUser, asyncWrap(deleteListing)) // deletes a specific lising
-    .put(isLoggedIn, isCreatedUser, valListing('edit'), asyncWrap(putEditListing)); // edits a specific listing
+    .put(isLoggedIn, isCreatedUser, valListing('edit'), upload.single("image"), asyncWrap(putEditListing)); // edits a specific listing
 
 export default router;

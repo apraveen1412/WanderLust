@@ -7,9 +7,7 @@
                 <i class="fa-solid fa-pen-to-square"></i>
             </a>
         <% } %>
-        <img src='<%= listed.image.includes("unsplash.com") 
-                ? listed.image.split("?")[0] + "?w=400&q=60&auto=format&fit=crop" 
-                : listed.image %>' 
+        <img src='<%= listed.image.url %>' 
                 class="card-img-top listed-item-img" 
                 alt="<%= listed.title %>"
                 loading="lazy">
