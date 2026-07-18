@@ -59,7 +59,16 @@ export const getEditListing = async (req, res, next)=>{
 export const putEditListing = async (req, res, next) => {
     let { id } = req.params;
     if (!id) return next(new ExpressError(404, "Listing doesn't exist"));
-    await listing.findByIdAndUpdate(id, req.body, { runValidators: true });
+    let currentListing = await listing.findById(id);
+    let updatedListing = req.body;
+    if(typeof req.file !== 'undefined'){
+        if (!updatedListing.image) {
+            updatedListing.image = {};
+        }
+        updatedListing.image.url = req.file.path;
+        updatedListing.image.filename = req.file.filename;
+    }
+    await listing.findByIdAndUpdate(id, updatedListing, { runValidators: true });
     req.flash('success', 'Successfully updated the listing');
     res.redirect(`/listings/${id}`);
 }

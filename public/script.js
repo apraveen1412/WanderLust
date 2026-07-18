@@ -76,23 +76,47 @@ if(needsValidation){
 const stars = document.querySelectorAll('.stars');
 const inputRating = document.querySelector('#rating');
 
-if(stars && inputRating){ // review stars 
+if(stars.length && inputRating){ // review stars 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const coinFlipFrames = [
+        { transform: 'rotateY(0deg) scale(1)' },
+        { transform: 'rotateY(90deg) scale(1.25)', offset: 0.35 },
+        { transform: 'rotateY(100deg) scale(1.5)', offset: 0.5 },
+        { transform: 'rotateY(180deg) scale(1.25)', offset: 0.65 },
+        { transform: 'rotateY(360deg) scale(1)' }
+    ];
+    const coinFlipTiming = { duration: 600, easing: 'cubic-bezier(0.45, 0.05, 0.55, 0.95)' };
+
     stars.forEach((star)=>{
         star.addEventListener('click', (e)=>{
             e.preventDefault();
-            const rating = star.dataset.value;
-            inputRating.value = rating;
+
+            // Clicking the star that already matches the current rating
+            // clears the rating back to empty (this is the toggle feature).
+            const clickedValue = star.dataset.value;
+            const isClearing = inputRating.value === clickedValue;
+            const rating = isClearing ? '0' : clickedValue;
+            inputRating.value = isClearing ? '' : rating;
 
             stars.forEach((s)=>{
                 if(s.dataset.value <= rating){
-                    s.classList.toggle('fa-regular');
-                    s.classList.toggle('fa-solid');
+                    s.classList.remove('fa-regular');
+                    s.classList.add('fa-solid');
                 }
                 else{
                     s.classList.remove('fa-solid');
                     s.classList.add('fa-regular');
                 }
             });
+
+            // Coin flip plays only on the n-th star that was actually
+            // clicked, not on the other stars filled in alongside it.
+            // Element.animate() always plays a fresh instance immediately,
+            // so it doesn't depend on reflow timing or class-change tricks.
+            if(!prefersReducedMotion){
+                star.animate(coinFlipFrames, coinFlipTiming);
+            }
         });
     });
 }
