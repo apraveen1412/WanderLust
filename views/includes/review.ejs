@@ -1,6 +1,6 @@
-<h5>Leave a review</h5>
-<div class="reviewForm">
-    <% if(currentUser) {%>
+<% if(currentUser) { %>
+    <div class="reviewForm">
+        <h5>Leave a review</h5>
         <form action="/listings/<%= listed._id %>/reviews" method="post" class="container-md d-flex needs-validation" novalidate>
             <div class="reviewform-user">
                 <i class="fa-regular fa-user" style="color: rgb(117 117 117);"></i>
@@ -20,11 +20,11 @@
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
-    <% } %>
-</div>
+    </div>
+<% } %>
 
-<div class="propertyReviews">
-    <% if(listed.reviews && listed.reviews.length > 0){ %>
+<% if(listed.reviews && listed.reviews.length > 0){ %>
+    <div class="propertyReviews">
         <div class="row">
             <% for(let rev of listed.reviews){ %>
                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -46,7 +46,7 @@
                                 </form>
                             <% } %>
                         </div>
-
+                    
                         <div class="review-card-item2 d-flex flex-column">
                             <div class="star-rating d-flex">
                                 <div class="reviewStars d-flex align-items-center">
@@ -64,8 +64,6 @@
                     </div>
                 </div>
             <% } %>
-        </div>
-    <% } else { %>
-        <p class="text-muted">No reviews yet. Be the first!</p>
-    <% } %>
-</div>
+        </div> 
+    </div>
+<% } %>

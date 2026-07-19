@@ -15,7 +15,6 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     overflow-x: hidden;
 }
@@ -220,7 +219,14 @@ body {
 .pop {
     transform: scale(1.5);
 }
-
+#map { 
+    position: absolute; 
+    width: 70vw;
+    height: 38vh; 
+}
+.listing-location{
+    height: 5rem;
+}
 
 /* NEW / EDIT LISTING */
 
@@ -343,6 +349,8 @@ body:has(.newListing, .editListing) .navbar {
 
 footer {
     width: 100%;
+    position: sticky;
+    top: 100vh;
 }
 
 .footer-info {

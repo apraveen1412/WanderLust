@@ -52,8 +52,10 @@ export const addListing = async (req, res, next)=>{
 export const getEditListing = async (req, res, next)=>{
     let id = req.params.id;
     const listed = await listing.findById(id);
+    let originalImage = listed.image.url;
+    originalImage = originalImage.replace('/upload', '/upload/h_150');
     if(!listed) return next(new ExpressError(404, "Listing doesn't exist"));
-    res.render('edit', {listed});
+    res.render('edit', {listed, originalImage});
 }
 
 export const putEditListing = async (req, res, next) => {

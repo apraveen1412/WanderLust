@@ -44,6 +44,17 @@
         </div>
     </div>
 </div>
-<div class="container-md reviews-section">
-    <%- include('./includes/review.ejs') %>
+
+<%if(currentUser) { %>
+    <div class="container-md reviews-section">
+        <%- include('./includes/review.ejs') %>
+    </div>
+<% } %>
+<div class="listing-location container-md d-flex flex-column">
+    <h3>Where you'll be</h3>
+    <div id="map"></div>
 </div>
+<script>
+    const mapToken = '<%= process.env.MAP_TOKEN%>';
+</script>
+<script src="/js/map.js"></script>
