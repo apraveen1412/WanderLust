@@ -28,9 +28,8 @@
     <div class="invalid-feedback">Please enter a valid price.</div>
     </div>
     <div class="new-item1 d-flex justify-content-evenly">
-        
         <div class="mb-3">
-            <label for="newLocation" class="form-label">Location</label>
+            <label for="newLocation" class="form-label">Address</label>
             <input type="text" class="form-control" id="newLocation" placeholder="Location" name="location" required>
             <div class="invalid-feedback">Please enter a valid location.</div>
         </div>
@@ -40,9 +39,19 @@
         <div class="invalid-feedback">Please enter a valid country name.</div>
         </div>
     </div>
+    <div class="listing-location container-md d-flex flex-column">
+        <h5>Add the location of the property</h5>
+        <div id="map"></div>
+    </div>
     <div class="mb-3 form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
         <label class="form-check-label" for="exampleCheck1">I am the sole person responsible for this property.</label>
     </div>
     <button type="submit" class="btn newPostBtn">Post Listing</button>
 </form>
+
+<script>
+    const mapToken = '<%= process.env.MAP_TOKEN%>';
+    const coordinates = undefined;
+</script>
+<script src="/js/map.js"></script>

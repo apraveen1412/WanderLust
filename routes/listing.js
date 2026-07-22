@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import methodOverride from 'method-override';
 import multer from 'multer';
 
+
 // Error handler and validators
 import ExpressError from '../middleware/ExpressError.js'
 import errorHandler from '../middleware/errorHandler.js';
@@ -22,6 +23,7 @@ import { cloudinary, storage } from '../cloudConfig.js';
 
 const router = express.Router();
 const upload = multer({storage});
+
 
 router.route('/')
     .get(asyncWrap(index)) // home

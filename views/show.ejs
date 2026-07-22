@@ -51,10 +51,12 @@
     </div>
 <% } %>
 <div class="listing-location container-md d-flex flex-column">
-    <h3>Where you'll be</h3>
+    <h5>Where you'll be</h5>
     <div id="map"></div>
 </div>
 <script>
     const mapToken = '<%= process.env.MAP_TOKEN%>';
+    const coordinates = <%- JSON.stringify(listed.geometry.coordinates) %>;
+    const locate = '<%= listed.location %>';
 </script>
 <script src="/js/map.js"></script>

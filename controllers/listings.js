@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import {geocodingClient} from '../geocodingConfig.js'
 
 // models
 import { Listing as listing } from "../models/listing.js";
@@ -39,13 +40,22 @@ export const searchListing = async (req, res, next)=>{
 }
 
 export const addListing = async (req, res, next)=>{
+    let response = await geocodingClient.forwardGeocode({
+        query: req.body.location,
+        limit: 1,
+    })
+      .send();
+      console.log(response.body.features[0].geometry);
+
     let newProperty = new listing(req.body);
     newProperty.owner = req.user._id;
     newProperty.image.url = req.file.path;
     newProperty.image.filename = req.file.filename; 
+    newProperty.geometry=response.body.features[0].geometry;
     console.log(newProperty);
     req.flash('success', 'Successfully added new listing');
-    await newProperty.save(); 
+    let savedListing = await newProperty.save();
+    console.log(savedListing); 
     res.redirect('/listings');
 }
 
