@@ -42,14 +42,15 @@
     <div class="listing-location container-md d-flex flex-column">
         <h5>Add the location of the property</h5>
         <div id="map"></div>
+        <button type="button" class="btn btn-danger useLiveLocation"><i class="fa-solid fa-location-dot" style="color: rgb(255, 255, 255);"></i> Use live location</button>
     </div>
     <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-        <label class="form-check-label" for="exampleCheck1">I am the sole person responsible for this property.</label>
+        <input type="checkbox" class="form-check-input" id="user-consent" required>
+        <label class="form-check-label" for="user-consent">I am the sole person responsible for this property.</label>
     </div>
+    <input type="hidden" name="geometry" value="" class="geometry" required>
     <button type="submit" class="btn newPostBtn">Post Listing</button>
 </form>
-
 <script>
     const mapToken = '<%= process.env.MAP_TOKEN%>';
     const coordinates = undefined;

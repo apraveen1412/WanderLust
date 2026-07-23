@@ -181,6 +181,10 @@ body {
     height: 35vh; 
     flex-shrink: 0;
 }
+.useLiveLocation{
+    align-self: center;
+    width: 50vw;
+}
 .listing-location {
     height: auto;
     align-items: center;
@@ -230,7 +234,12 @@ body:has(.newListing, .editListing) .navbar {
     color: white;
     transform: scale(1.05);
 }
-
+.useLiveLocation{
+    align-self: center;
+    width: 50vw;
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0rem;
+}
 
 /* NAVBAR */
 .navbar {
@@ -511,6 +520,10 @@ footer {
         width: 70vw;
         height: 15vh;
     }
+    .useLiveLocation{
+        align-self: center;
+        width: 70vw;
+    }
 
     /* Show page */
     .show-listing {
@@ -681,6 +694,10 @@ footer {
 
     /* Map */
     #map{width: 70vw;}
+    .useLiveLocation{
+        align-self: center;
+        width: 70vw;
+    }
 
     /* Reviews */
     .reviews-section {width: 92vw;}
@@ -748,6 +765,10 @@ footer {
 
     /* Map */
     #map{width: 65vw;}
+    .useLiveLocation{
+        align-self: center;
+        width: 65vw;
+    }
 
     /* Reviews */
     .reviews-section {width: 92vw;}
