@@ -242,6 +242,11 @@ body:has(.newListing, .editListing) .navbar {
 }
 
 /* NAVBAR */
+#main-nav{
+    margin: 0rem 1.5rem;
+    margin-top: 0.4rem;
+}
+#nav-search{width: 20vw;}
 .navbar {
     min-height: 5rem;
     background-color: white !important;
@@ -459,6 +464,12 @@ footer {
 @media (max-width: 425px) {
 
     /* Navbar */
+    #home{border-top: 1px solid rgba(128, 128, 128, 0.5);}
+    #nav-search{width: 78vw;}
+    #main-nav {
+        margin: 0rem 0rem;
+        margin-top: 0rem;
+    }
     .navbar {min-height: 4.5rem;}
     .navbar .container-md {
         padding-left: 0.75rem;
@@ -650,6 +661,8 @@ footer {
 @media (min-width: 426px) and (max-width: 768px) {
 
     /* Navbar */
+    #home{border-top: 1px solid rgba(128, 128, 128, 0.5);}
+    #nav-search{width: 78vw;}
     .navbar-brand {font-size: 1.6rem;}
     .navbar-collapse form {
         width: 100%;
@@ -729,6 +742,10 @@ footer {
 /* TABLET / SMALL LAPTOP - 769px TO 1024px */
 
 @media (min-width: 769px) and (max-width: 1024px) {
+
+    /* Navbar */
+    #home{border-top: 1px solid rgba(128, 128, 128, 0.5);}
+    #nav-search{width: 78vw;}
 
     /* Listings */
     .listing-cards {width: 95%;}

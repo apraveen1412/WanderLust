@@ -10,7 +10,33 @@
         <% } %>
     </p>
 <% } %>
+<style>
+    #filters{
+        display: flex;
+        column-gap: 0.2rem;
+        margin-top: 1rem;
+    }
+    .filter{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
 
+<div id="filters">
+    <div class="filter">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>Trending</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-bed"></i></div>
+        <p>Rooms</p>
+    </div>
+    <div class="filter">
+        <div><i class="fa-solid fa-bed"></i></div>
+        <p>Rooms</p>
+    </div>
+</div>
 <div class="listing-cards container-md">
     <div class="row g-4">
         <% for(let item of list) { %>

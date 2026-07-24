@@ -18,13 +18,15 @@ import { fileURLToPath } from "url";
 import ejsMate from 'ejs-mate';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import flash from 'connect-flash';
 import passport from 'passport';
 import localStrategy from 'passport-local';
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import dns from 'dns';
 
 
-
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 const app = express();
 dotenv.config();
 
@@ -47,11 +49,19 @@ import userRouter from './routes/user.js'
 // utils
 import asyncWrap from './utils/aysncWrap.js'
 import {valListing, valReview} from './utils/serversideValidation.js'
+import { error } from "console";
 
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const store = MongoStore.create({
+    mongoUrl: process.env.ATLAS_DB_URL,
+    crypto: { secret: 'topSecretKey' },
+    touchAfter: 24*3600, // Intervel between session updates in seconds
+});
+store.on('error', (err) => console.log('Error in Mongo session store', err));
 const sessionOptions = {
+    store,
     secret: 'topSecretKey',
     resave: false,
     saveUninitialized: true,
@@ -61,6 +71,7 @@ const sessionOptions = {
         httpOnly: true,
     },
 };
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -126,7 +137,7 @@ passport.deserializeUser(async (id, done) => {
 
 app.engine('ejs', ejsMate);
 async function main(){
-    await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+    await mongoose.connect(process.env.ATLAS_DB_URL);
 }
 app.use((req, res, next)=>{
     res.locals.success = req.flash('success'); // new listing flash message
@@ -137,8 +148,12 @@ app.use((req, res, next)=>{
 });
 
 main()
-    .then(()=>console.log('DB connection successful'))
-    .catch((err)=>console.log(err));
+  .then(() => console.log("DB connection successful"))
+  .catch((err) => {
+    console.error("Connection failed:");
+    console.error(err);
+    console.error(err.stack);
+  });
 
 
 app.get('/', (req, res)=>{res.redirect('/listings')});

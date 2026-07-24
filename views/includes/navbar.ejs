@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-xl bg-light sticky-top border-bottom">
-  <div class="container-md d-flex align-items-center justify-content-between">
+<nav class="navbar navbar-expand-xl bg-light sticky-top">
+  <div class="container-fluid d-flex align-items-center justify-content-between" id="main-nav">
 
     <a class="navbar-brand" href="/listings">
       <i class="fa-solid fa-compass"></i>WanderLust
@@ -46,13 +46,13 @@
     <div class="collapse navbar-collapse align-items-center flex-grow-1" id="navbarSupportedContent">
 
       <ul class="navbar-nav me-auto mb-2 mb-xl-0 align-items-xl-center">
-        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="/listings">Explore</a></li>
-        <li class="nav-item"><a class="nav-link" href="/listings/new">Add new listing</a></li>
+        <li class="nav-item" id="home"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item" id="explore"><a class="nav-link" href="/listings">Explore</a></li>
+        <li class="nav-item" id="addNewListing"><a class="nav-link" href="/listings/new">Add new listing</a></li>
       </ul>
 
       <form class="d-flex align-items-center mx-xl-3" role="search" method="get" action="/listings/search">
-        <input class="form-control me-2" type="search" placeholder="Enter name of a Property, Location or Country" aria-label="Search" name="search">
+        <input class="form-control me-2" type="search" placeholder="Enter name of a Property, Location or Country" aria-label="Search" name="search" id="nav-search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
 
