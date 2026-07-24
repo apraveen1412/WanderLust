@@ -56,13 +56,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const store = MongoStore.create({
     mongoUrl: process.env.ATLAS_DB_URL,
-    crypto: { secret: 'topSecretKey' },
+    crypto: { secret: process.env.SECRET },
     touchAfter: 24*3600, // Intervel between session updates in seconds
 });
 store.on('error', (err) => console.log('Error in Mongo session store', err));
 const sessionOptions = {
     store,
-    secret: 'topSecretKey',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
