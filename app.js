@@ -74,6 +74,7 @@ const sessionOptions = {
 
 
 app.set('views', path.join(__dirname, 'views'));
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.use(express.static(path.join('public')));
 app.use(express.urlencoded({ extended: true }));
@@ -135,11 +136,6 @@ passport.deserializeUser(async (id, done) => {
     }
 });
 
-console.log("===== GOOGLE OAUTH DEBUG =====");
-console.log("GOOGLE_CLIENT_ID:", process.env.GOOGLE_CLIENT_ID);
-console.log("GOOGLE_CALLBACK_URL:", process.env.GOOGLE_CALLBACK_URL);
-console.log("================================");
-app.engine('ejs', ejsMate);
 async function main(){
     await mongoose.connect(process.env.ATLAS_DB_URL);
 }

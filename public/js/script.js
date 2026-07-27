@@ -71,6 +71,20 @@ if(needsValidation){
     })()
 }
 
+// new property type
+const newPropertyOptions = document.querySelectorAll('.new-property-option');
+const propertyTypeInput = document.querySelector('#propertyTypeInput');
+const defaultProperty = document.querySelector('#selectPropertyType');
+
+newPropertyOptions.forEach((option)=>{
+    option.addEventListener('click', (e)=>{
+        e.preventDefault();
+        // console.log(option.dataset.value);
+        propertyTypeInput.value = option.dataset.value;
+        defaultProperty.innerHTML = option.dataset.value;
+    });
+});
+
 // review
 // rating
 const stars = document.querySelectorAll('.stars');
@@ -119,4 +133,20 @@ if(stars.length && inputRating){ // review stars
             }
         });
     });
+}
+
+// tab-all tab-home tab-hotel
+const tabAll = document.querySelector('#tab-all');
+const tabHome = document.querySelector('#tab-home');
+const tabHotel = document.querySelector('#tab-hotel');
+
+if(tabAll && tabHome && tabHotel){
+    tabAll.addEventListener('mouseover', ()=>tabAll.classList.add('tab-hover'));
+    tabHome.addEventListener('mouseover', ()=>tabHome.classList.add('tab-hover'));
+    tabHotel.addEventListener('mouseover', ()=>tabHotel.classList.add('tab-hover'));
+
+    tabAll.addEventListener('mouseleave', ()=>tabAll.classList.remove('tab-hover'));
+    tabHome.addEventListener('mouseleave', ()=>tabHome.classList.remove('tab-hover'));
+    tabHotel.addEventListener('mouseleave', ()=>tabHotel.classList.remove('tab-hover'));
+
 }

@@ -39,6 +39,10 @@ const listingSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
     },
+    propertyType: {
+        type: String,
+        required: true,
+    },
     geometry: {
         type: {
             type: String, // Don't do `{ location: { type: String } }`

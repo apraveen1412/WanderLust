@@ -42,6 +42,9 @@ export const searchListing = async (req, res, next)=>{
 
 
 export const addListing = async (req, res, next)=>{
+    // console.log(req.body);
+    // res.send('YO Nakama');
+    
     let response = await geocodingClient.forwardGeocode({
         query: req.body.location,
         limit: 1,
@@ -56,6 +59,7 @@ export const addListing = async (req, res, next)=>{
     newProperty.owner = req.user._id;
     newProperty.image.url = req.file.path;
     newProperty.image.filename = req.file.filename;
+    newProperty.propertyType=req.body.propertyType;
     console.log(newProperty);
     req.flash('success', 'Successfully added new listing');
     let savedListing = await newProperty.save();

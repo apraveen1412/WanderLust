@@ -15,10 +15,9 @@ body {
     align-items: center;
     overflow-x: hidden;
 }
-.line {
-    height: 1px;
-    width: 98vw;
-    background-color: #2222223d;
+.tab-hover {
+    border-bottom: 0.2rem solid #222222ab;
+    width: 100%;
 }
 
 
@@ -214,8 +213,12 @@ body:has(.newListing, .editListing) .navbar {
     justify-content: space-between;
     width: 100%;
 }
-.new-item1, .edit-item1 {gap: 0.5rem;}
-.new-item1 .mb-3, .edit-item1 .mb-3 {width: 50%;}
+#price, #propertyType, #propertyType ul{width: 100%;}
+#propertyType ul li .new-property-option:hover{background-color: #dbdbdb !important;}
+#selectPropertyType{border: 1px solid #dee2e6;}
+.new-item1{gap: 0.45rem;}
+.new-item2, .edit-item1 {gap: 0.5rem;}
+.new-item2 .mb-3, .edit-item1 .mb-3 {width: 50%;}
 #updateHeading, #newHeading {
     position: static;
     margin-top: 2rem;
@@ -246,7 +249,18 @@ body:has(.newListing, .editListing) .navbar {
     margin: 0rem 1.5rem;
     margin-top: 0.4rem;
 }
-#nav-search{width: 20vw;}
+#nav-search{width: 20vw !important;}
+#search-form{
+    border-radius: 1rem;
+    margin-right: 20vw;
+    border: 1px solid #80808054;
+}
+#search-form:hover{box-shadow: 0px 0px 3px 0px;}
+#search-form input, #search-form button{border: none;}
+#search-form input{border-radius: 1rem;}
+#search-form input:focus{box-shadow: none;}
+#search-form button:hover{background-color: transparent !important;}
+
 .navbar {
     min-height: 5rem;
     background-color: white !important;
@@ -463,7 +477,7 @@ footer {
 
 @media (max-width: 425px) {
 
-    /* Navbar */
+    /* barbar */
     #home{border-top: 1px solid rgba(128, 128, 128, 0.5);}
     #nav-search{width: 78vw;}
     #main-nav {
@@ -619,11 +633,11 @@ footer {
         width: 95%;
         padding: 0.75rem;
     }
-    .new-item1, .edit-item1 {
+    .new-item2, .edit-item1 {
         flex-direction: column;
         gap: 0;
     }
-    .new-item1 .mb-3, .edit-item1 .mb-3 {width: 100%;}
+    .new-item2 .mb-3, .edit-item1 .mb-3 {width: 100%;}
     #updateHeading, #newHeading {
         margin-top: 1.5rem;
         margin-bottom: 0.5rem;
@@ -727,8 +741,8 @@ footer {
 
     /* New/Edit */
     .newListing, .editListing {width: 90%;}
-    .new-item1, .edit-item1 {gap: 0.5rem;}
-    .new-item1 .mb-3, .edit-item1 .mb-3 {width: 50%;}
+    .new-item2, .edit-item1 {gap: 0.5rem;}
+    .new-item2 .mb-3, .edit-item1 .mb-3 {width: 50%;}
     .new-alert, .ed-alert {width: 90% !important;}
 
     /* Signup/Login */
@@ -746,6 +760,18 @@ footer {
     /* Navbar */
     #home{border-top: 1px solid rgba(128, 128, 128, 0.5);}
     #nav-search{width: 78vw;}
+    #nav-search{width: 95% !important;}
+    #search-form{
+        border-radius: 0.5rem;
+        margin-right: 0rem !important;
+        border: 1px solid #80808054;
+    }
+    #search-form:hover{box-shadow: 0px 0px 3px 0px;}
+    #search-form:focus{box-shadow: 0px 0px 3px 0px;}
+    #search-form input, #search-form button{border: none;}
+    #search-form input{border-radius: 0.5rem;}
+    #search-form input:focus{box-shadow: none;}
+    #search-form button:hover{background-color: transparent !important;}
 
     /* Listings */
     .listing-cards {width: 95%;}
