@@ -136,33 +136,21 @@ if(stars.length && inputRating){ // review stars
 }
 
 // tab-all tab-home tab-hotel
+// tab-all tab-home tab-hotel
 const tabAll = document.querySelector('#tab-all');
 const tabHome = document.querySelector('#tab-home');
 const tabHotel = document.querySelector('#tab-hotel');
-const listingCards = document.querySelector('.listing-cards');
-let list = listingCards.dataset.value;
-if(tabAll && tabHome && tabHotel && list){
-    const temp = list;
-    tabAll.addEventListener('click', (e)=>{
-        e.preventDefault();
-        list = temp;
+const listingItems = document.querySelectorAll('.listing-item');
+
+function filterByType(type) {
+    listingItems.forEach((card) => {
+        const matches = type === 'all' || card.dataset.propertyType === type;
+        card.style.display = matches ? '' : 'none';
     });
-    tabHome.addEventListener('click', (e)=>{
-        e.preventDefault();
-        list.forEach((e)=>{e.pop();}); 
-        temp.forEach((home)=>{
-            if(home.propertyType === 'home'){
-                list.push(home);
-            }
-        });
-    });
-    tabHotel.addEventListener('click', (e)=>{
-        e.preventDefault();
-        list.forEach((e)=>{e.pop();}); 
-        temp.forEach((hotel)=>{
-            if(home.propertyType === 'hotel'){
-                list.push(hotel);
-            }
-        });
-    });
+}
+
+if (tabAll && tabHome && tabHotel && listingItems.length) {
+    tabAll.addEventListener('click', (e) => { e.preventDefault(); filterByType('all'); });
+    tabHome.addEventListener('click', (e) => { e.preventDefault(); filterByType('home'); });
+    tabHotel.addEventListener('click', (e) => { e.preventDefault(); filterByType('hotel'); });
 }
