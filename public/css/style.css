@@ -473,7 +473,7 @@ footer {
 
 @media (max-width: 425px) {
 
-    /* barbar */
+    /* narbar */
     #home{border-top: 1px solid rgba(128, 128, 128, 0.5);}
     #nav-search{width: 78vw;}
     #main-nav {
@@ -511,6 +511,16 @@ footer {
         height: 2.2rem;
     }
     .profile-pic i {font-size: 2.2rem;}
+    #search-form{
+        border-radius: 0.5rem;
+        margin-right: 0rem !important;
+        border: 1px solid #80808054;
+    }
+    #search-form input{
+        border-radius: 0.5rem;
+        width: 80vw !important;
+    }
+    
 
     /* Listings */
     .listing-cards {
@@ -545,6 +555,7 @@ footer {
         align-self: center;
         width: 70vw;
     }
+
 
     /* Show page */
     .show-listing {
@@ -582,6 +593,7 @@ footer {
         top: 0.7rem;
         right: 0.7rem;
     }
+
 
     /* Reviews */
     .reviews-section {
@@ -623,6 +635,7 @@ footer {
     }
     .star-rating {flex-wrap: wrap;}
     .rev-posted {font-size: 0.8rem;}
+
 
     /* New/Edit forms */
     .newListing, .editListing {
@@ -677,6 +690,15 @@ footer {
     .navbar-collapse form {
         width: 100%;
         margin-top: 0.5rem;
+    }
+    #search-form{
+        border-radius: 0.5rem;
+        margin-right: 0rem !important;
+        border: 1px solid #80808054;
+    }
+    #search-form input{
+        border-radius: 0.5rem;
+        width: 80vw !important;
     }
 
     /* Listings */
