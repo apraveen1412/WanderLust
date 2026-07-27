@@ -15,10 +15,6 @@ body {
     align-items: center;
     overflow-x: hidden;
 }
-.tab-hover {
-    border-bottom: 0.2rem solid #222222ab;
-    width: 100%;
-}
 
 
 /* LISTING PAGE */

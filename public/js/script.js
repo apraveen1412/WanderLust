@@ -140,13 +140,28 @@ const tabAll = document.querySelector('#tab-all');
 const tabHome = document.querySelector('#tab-home');
 const tabHotel = document.querySelector('#tab-hotel');
 
-if(tabAll && tabHome && tabHotel){
-    tabAll.addEventListener('mouseover', ()=>tabAll.classList.add('tab-hover'));
-    tabHome.addEventListener('mouseover', ()=>tabHome.classList.add('tab-hover'));
-    tabHotel.addEventListener('mouseover', ()=>tabHotel.classList.add('tab-hover'));
-
-    tabAll.addEventListener('mouseleave', ()=>tabAll.classList.remove('tab-hover'));
-    tabHome.addEventListener('mouseleave', ()=>tabHome.classList.remove('tab-hover'));
-    tabHotel.addEventListener('mouseleave', ()=>tabHotel.classList.remove('tab-hover'));
-
+if(tabAll && tabHome && tabHotel && list){
+    const temp = list;
+    tabAll.addEventListener('click', (e)=>{
+        e.preventDefault();
+        list = temp;
+    });
+    tabHome.addEventListener('click', (e)=>{
+        e.preventDefault();
+        list.forEach((e)=>{e.pop();}); 
+        temp.forEach((home)=>{
+            if(home.propertyType === 'home'){
+                list.push(home);
+            }
+        });
+    });
+    tabHotel.addEventListener('click', (e)=>{
+        e.preventDefault();
+        list.forEach((e)=>{e.pop();}); 
+        temp.forEach((hotel)=>{
+            if(home.propertyType === 'hotel'){
+                list.push(hotel);
+            }
+        });
+    });
 }
