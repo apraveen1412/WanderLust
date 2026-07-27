@@ -139,7 +139,8 @@ if(stars.length && inputRating){ // review stars
 const tabAll = document.querySelector('#tab-all');
 const tabHome = document.querySelector('#tab-home');
 const tabHotel = document.querySelector('#tab-hotel');
-
+const listingCards = document.querySelector('.listing-cards');
+let list = listingCards.dataset.value;
 if(tabAll && tabHome && tabHotel && list){
     const temp = list;
     tabAll.addEventListener('click', (e)=>{

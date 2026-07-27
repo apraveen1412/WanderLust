@@ -46,7 +46,7 @@
 
 <%- include('includes/flash.ejs') %>
  
-<div class="listing-cards container-md">
+<div class="listing-cards container-md" data-list="<%- list %>">
     <div class="row g-4">
         <% for(let item of list) { %>
             <div class="col-lg-4 col-md-6 col-12">
