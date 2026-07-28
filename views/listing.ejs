@@ -19,17 +19,17 @@
     .tab{
         display: flex;
         align-items: center;
+        justify-content: center;
+        border-bottom: 0.4rem solid transparent;
+        transition: border-color 0.3s linear(0 0%, 0 1.8%, 0.01 3.6%, 0.03 6.35%, 0.07 9.1%, 0.13 11.4%, 0.19 13.4%, 0.27 15%, 0.34 16.1%, 0.54 18.35%, 0.66 20.6%, 0.72 22.4%, 0.77 24.6%, 0.81 27.3%, 0.85 30.4%, 0.88 35.1%, 0.92 40.6%, 0.94 47.2%, 0.96 55%, 0.98 64%, 0.99 74.4%, 1 86.4%, 1 100%);
+        width: 4vw;
     }
     .tab a i{color: #da1249;}
-    .tab a{
+    .tab a {
         text-decoration: none;
         color: black;
     }
-    .tab a:hover {
-        border-bottom: 0.4rem solid #222222ab;
-        width: 100%;
-        transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    .tab:hover, .tab:focus {border-color: #333333ab;}
 </style>
 
 <div id="tabs">

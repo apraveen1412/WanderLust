@@ -85,8 +85,7 @@ newPropertyOptions.forEach((option)=>{
     });
 });
 
-// review
-// rating
+// review & rating
 const stars = document.querySelectorAll('.stars');
 const inputRating = document.querySelector('#rating');
 
@@ -136,7 +135,6 @@ if(stars.length && inputRating){ // review stars
 }
 
 // tab-all tab-home tab-hotel
-// tab-all tab-home tab-hotel
 const tabAll = document.querySelector('#tab-all');
 const tabHome = document.querySelector('#tab-home');
 const tabHotel = document.querySelector('#tab-hotel');
@@ -150,7 +148,25 @@ function filterByType(type) {
 }
 
 if (tabAll && tabHome && tabHotel && listingItems.length) {
-    tabAll.addEventListener('click', (e) => { e.preventDefault(); filterByType('all'); });
-    tabHome.addEventListener('click', (e) => { e.preventDefault(); filterByType('home'); });
-    tabHotel.addEventListener('click', (e) => { e.preventDefault(); filterByType('hotel'); });
+    tabAll.addEventListener('click', (e) => {
+        tabHome.style.borderColor = '';
+        tabHotel.style.borderColor = ''; 
+        e.preventDefault(); 
+        filterByType('all');
+        tabAll.style.borderColor = '#222222ab'; 
+    });
+    tabHome.addEventListener('click', (e) => {
+        tabAll.style.borderColor = '';
+        tabHotel.style.borderColor = ''; 
+        e.preventDefault(); 
+        filterByType('home');
+        tabHome.style.borderColor = '#222222ab'; 
+    });
+    tabHotel.addEventListener('click', (e) => {
+        tabHome.style.borderColor = '';
+        tabAll.style.borderColor = ''; 
+        e.preventDefault(); 
+        filterByType('hotel');
+        tabHotel.style.borderColor = '#222222ab'; 
+    });
 }
